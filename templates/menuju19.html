@@ -1,0 +1,121 @@
+{% extends "layout_juego_golf.html" %}
+{% block content%}
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal_juego.css')}}"/>
+</head>
+<header>
+  <div class="crear_juego" id="fixed-tit">
+    <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
+    <li class="titulo_juego"><h2 >SCORES</h2>  </li>
+  </div>
+</header>
+<br><br><br><br>
+<h2 class="tit_cambios">{{campo}} - {{modalidad}}</h2>
+
+<!-- <p>{{tarjetas}}</p> -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alerta">
+      <h2>{{message}}</h2>
+    </div>
+
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+  <div class="conte_score">
+    <form class="" action="{{url_for('scorejuego')}}" method="post">
+      <div class="rotar">
+        <div class="sig_ant">
+          <button type="submit" name="lin" value="ant" onclick=""><span class="icon-chevron-left"></button>
+        </div>
+        <h3 class="titulo_hoyo">HOYO {{hoyo}}</h3>
+        <div class="sig_ant">
+          <button type="submit" name="lin" value="sig" onclick=""><span class="icon-chevron-right"></button>
+        </div>
+      </div>
+      <div class="info_hoyo">
+        <h3 class="subt_cambios">PAR___{{par}}</h3>
+        <h3 class="subt_cambios">VENTAJA___{{ventaja}}</h3>
+      </div>
+
+        <br>
+      <input type="hidden" name="campo" value="{{campo}}">
+      <input type="hidden" name="modalidad" value="{{modalidad}}">
+      <input type="hidden" name="hoyo" value="{{hoyo}}">
+      <input type="hidden" name="par" value="{{par}}">
+      <input type="hidden" name="ventaja" value="{{ventaja}}">
+      <input type="hidden" name="configurar" value="no">
+      <input type="hidden" name="jugar" value="no">
+
+      <div class="contenedor19">
+        <table class="registro_scores">
+          <tr>
+            <td class="col1"></td>
+            <td class="col2"></td>
+            <td class="col3">SCORE</td>
+            <td class="col4">PUT</td>
+          </tr>
+          {% for linea in tarjetas %}
+          <tr>
+            {% if linea[2]==linea[52]%}
+            <td></td>
+            {% else %}
+            <td ><span class="icon-golf1"></td>
+            {% endif %}
+            <td class="col5">{{linea[52]}} <h6>Handicap: {{linea[53]}}</h6></td>
+            <td><input type="number" min=1 max=20  name="{{linea[55]}}" placeholder="{{linea[poshoyo]}}" class="score"></td>
+            <!-- <td><select class="" name="{{linea[55]}}">
+                  <option selected>{{linea[poshoyo]}}</option>
+                  {% for i in range(20)%}
+                  <option >{{i}}</option>
+                  {% endfor %}
+                </select></td> -->
+            <td><input type="number" min=0 max=20  name="{{linea[56]}}" placeholder="{{linea[posput]}}" class="score"></td>
+            <!-- <td><select class="" name="{{linea[56]}}">
+                  <option selected>{{linea[posput]}}</option>
+                  {% for i in range(10)%}
+                  <option >{{i}}</option>
+                  {% endfor %}
+                </select></td> -->
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+
+
+
+      <!-- <input id="submit" name="submit" type="submit" value="ACEPTAR"> -->
+    </form>
+  </div>
+<br><br><br><br>
+
+<div class="enlaces" id="fixed-bar">
+    <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list"></span></a></li>
+    <li class="presente"><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li> -->
+    <!-- <li ><a href="{{url_for('gruposjuegocambios')}}" name="configurar" value="si"><span class="icon-cogs"></span></a></li> -->
+    <li><form  action="{{url_for('logout')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    </form></li>
+    <li class="presente"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form></li>
+</div>
+
+
+
+{% endblock %}

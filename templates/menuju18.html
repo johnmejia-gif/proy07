@@ -1,0 +1,101 @@
+{% extends "layout_juego_golf.html" %}
+{% block content%}
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal_juego.css')}}"/>
+</head>
+<header>
+  <div class="crear_juego" id="fixed-tit">
+    <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
+    <li class="titulo_juego"><h2 >CREAR JUEGOS</h2>  </li>
+  </div>
+</header>
+<br><br><br><br>
+
+<!-- <h2>{{marcas}}</h2> -->
+<h2 class="tit_cambios">{{campo}} - {{modalidad}}</h2>
+<h3 class="subt_cambios">Realice los cambios</h3>
+  <div class="conte_cambiar_juego">
+
+
+    <form class="formcambios_tarjetas" action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="campo" value="{{campo}}">
+      <input type="hidden" name="modalidad" value="{{modalidad}}">
+      <input type="hidden" name="configurar" value="no">
+      <input type="hidden" name="jugar" value="no">
+      <div class="contenedor18">
+        <table class="cambios_tarjetas">
+          <tr>
+            <td class="col1"></td>
+            <td class="col2"></td>
+            <td class="col3">MARCAS</td>
+            <td class="col4">HANDICAP</td>
+          </tr>
+          {% for linea in tarjetas %}
+          <tr>
+            {% if linea[2]==linea[52]%}
+            <td></td>
+            {% else %}
+            <td ><span class="icon-golf1"></td>
+            {% endif %}
+            <td class="col5">{{linea[52]}} <h6>Grupo: {{linea[50]}}</h6></td>
+            <td><select class="" name="{{linea[56]}}">
+                  <option selected>{{linea[54]}}</option>
+                  <option >Negras</option>
+                  <option >Azules</option>
+                  <option >Blancas</option>
+                  <option >Doradas</option>
+                  <option >Rojas</option>
+                  <option ></option>
+                </select></td>
+            <td><select class="" name="{{linea[55]}}">
+                  <option selected>{{linea[53]}}</option>
+                  {% for i in range(0,45)%}
+                  <option >{{i}}</option>
+                  {% endfor %}
+                </select></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="rotar">
+        <div class="sig_ant">
+          <button type="submit" name="terminar" value="actualizar" onclick="">Actualizar</button>
+        </div>
+        <div class="sig_ant">
+          <button type="submit" name="terminar" value="terminar" onclick="">Empezar Juego</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<br><br><br><br>
+
+<div class="enlaces" id="fixed-bar">
+    <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list"></span></a></li>
+    <li ><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li>
+    <li class="presente"><a href="{{url_for('logout')}}"><span class="icon-cogs"></span></a></li> -->
+    <li><form  action="{{url_for('logout')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    </form></li>
+    <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="configurar" value="no">
+      <button type="submit" name="jugar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
+    </form></li>
+    <li class="presente"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="jugar" value="no">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form></li>
+</div>
+
+
+
+{% endblock %}

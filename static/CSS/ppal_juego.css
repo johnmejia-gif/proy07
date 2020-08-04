@@ -1,0 +1,548 @@
+*{
+  margin: 0;padding: 0;
+  font-family: Roboto-Light;
+  box-sizing: border-box;
+}
+#fixed-tit {
+top: 0;
+       /* height: 34px;
+       padding: 13px 0 4px; */
+       position: fixed;
+       width: 100%;
+       /* z-index: 0; */
+}
+#fixed-bar {
+bottom: 0;
+       /* height: 34px;
+       padding: 13px 0 4px; */
+       position: fixed;
+       width: 100%;
+       /* z-index: 5000; */
+}
+.alerta{
+  background: orange;
+
+}
+.rotar{
+  width: 100%;
+  box-sizing: border-box;
+  margin:0%;
+  padding-top: 20px;
+  /* background: red; */
+  color: #ffff;
+  display: flex;
+  align-items:center;
+}
+.rotar .sig_ant{
+  box-sizing: border-box;
+  /* margin-left: 5%;
+  margin-right: 5% */
+  padding-left: 5%;
+  padding-right: 5%;
+  /* background: red; */
+  width: 50%;
+}
+
+.rotar .sig_ant button, .fingrupos button{
+  border-color: #fb8c00;
+  font-size: 25px;
+
+}
+
+.form_jugadores .fingrupos button{
+  width: 50%;
+}
+.fingrupos{
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 35px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-color: #fb8c00;
+  font-size: 5px;
+  width: 100%;
+  text-align: center;
+
+}
+
+.crear_juego{
+  width: 100%;
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+  background: #1F8DA6;
+  color: #ffff;
+  display: flex;
+  align-items:center;
+}
+.crear_juego h2{
+  box-sizing: border-box;
+  font-size: 30px;
+  color:#ffff;
+  padding-left: 0%;
+}
+.crear_juego li{
+
+  box-sizing: border-box;
+  display: inline-block;
+  height: auto;
+  color: #ffff;
+  width: 50%;
+  /* font-size: 60; */
+}
+.titulo_juego{
+  box-sizing: border-box;
+  width: 100%
+  /* font-size: 80; */
+
+}
+.form_crear_juego{
+  width: 100%;
+  box-sizing: border-box;
+
+}
+
+.form_crear_juego form{
+  background: #0000;
+  color: #065F73;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+
+.form_crear_juego form select{
+  color:#065F73;
+  width: 90%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #065F73;
+  box-sizing: border-box;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-left: 10px;
+  height: 50px;
+  font-size: 22px;
+}
+.form_crear_juego form input{
+  width: 90%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #065F73;
+  box-sizing: border-box;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-left: 10px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.form_crear_juego form label{
+  display: block;
+  font-size:17px;
+  margin:0px;
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  width: 100%;
+}
+.doscampos{
+  margin: 0px;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  align-items:center;
+}
+/* .totjug, .totgrup{
+  margin: 0px;
+  box-sizing: border-box;
+  display: flex;
+  width: 50%;
+} */
+
+.doscampos .totgrup, .totjug {
+  display: flex;
+  font-size:17px;
+  /* background: red; */
+  margin:0px;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+  padding-right: 10px;
+  width: 50%;
+  align-items:center;
+}
+.form_crear_juego form .doscampos .totjug label, .doscampos .totgrup label{
+  display: block;
+  /* background: pink; */
+  margin: 0px;
+  box-sizing: border-box;
+  padding-left: 20px;
+  /* padding-top: 30px; */
+  align-items:center;
+}
+
+.form_jugadores form{
+  background: #ffff;
+  color: #065F73;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+.form_jugadores form input{
+  color:#065F73;
+  width: 90%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #065F73;
+  box-sizing: border-box;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-left: 10px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.form_jugadores form label{
+  display: block;
+  font-size:17px;
+  margin:0px;
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  width: 100%;
+}
+.enlaces{
+  margin: 0;
+  box-sizing: border-box;
+  /* background: black; */
+  height: 70px;
+  display: flex;
+  align-items:center;
+
+}
+.enlaces li{
+  list-style: none;
+  margin: 0px;
+  width: 50%;
+  text-align: center;
+}
+
+.enlaces span{
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 50px;
+  color:#ffff;
+  align-items:center;
+}
+.enlaces a{
+  text-decoration: none;
+}
+.enlaces form{
+  text-decoration: none;
+  background: red;
+}
+.enlaces form button{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  background: #065F73;
+  border-radius: 0;
+  text-decoration: none;
+  height: 70px;
+  border: none;
+}
+.enlaces .presente span{
+  color: #fb8c00;
+}
+.conte_cambiar_juego .contenedor18{
+  /* background: brown; */
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  padding: 5%;
+}
+.conte_cambiar_juego .contenedor18 .cambios_tarjetas{
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  background: #fb8c00;
+  color: #ffff;
+  border: 1px solid #065F73;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.cambios_tarjetas .col1{
+  margin: 0;
+  box-sizing: border-box;
+  width: 10%;
+
+  /* padding: 40px; */
+}
+.cambios_tarjetas .col2{
+  margin: 0;
+  box-sizing: border-box;
+  width: 70%;
+  /* padding: 40px; */
+}
+.cambios_tarjetas .col3{
+  margin: 0;
+  box-sizing: border-box;
+  width: 10%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 10px;
+  /* padding: 40px; */
+}
+.cambios_tarjetas .col4{
+  margin: 0;
+  box-sizing: border-box;
+  width: 10%;
+  font-size: 10px;
+  /* padding: 40px; */
+}
+.cambios_tarjetas .col5{
+  margin: 0;
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  /* padding: 40px; */
+}
+.cambios_tarjetas .col5 h6{
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  /* padding: 40px; */
+}
+
+.cambios_tarjetas select{
+  /* background: red; */
+  margin:5px;
+  box-sizing: border-box;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 3px;
+  height: 35px;
+  border-radius: 10px;
+  border:none;
+}
+.tit_cambios{
+  color:#fb8c00;
+  font-size: 30px;
+  text-align: center;
+}
+.subt_cambios{
+  margin: 0;
+  color:#065F73;
+  padding-left: 5%;
+  font-size: 15px;
+  padding-bottom: 3px;
+}
+
+.conte_score .contenedor19{
+  /* background: brown; */
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.conte_score .contenedor19 .registro_scores{
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  background: #fb8c00;
+  color: #ffff;
+  border: 1px solid #065F73;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.conte_score .contenedor19 .registro_scores input{
+  width: 50px;
+  height: 30px;
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+}
+.info_hoyo{
+  box-sizing: border-box;
+  margin: 0;
+  padding-top: 20px;
+  /* padding-bottom: 10px; */
+  padding-left: 20%;
+  width: 100%;
+  /* background: pink; */
+  /* text-align: center; */
+}
+.info_hoyo h3{
+  color:#1F8DA6;
+  font-size: 15px;
+}
+.conte_score{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+.conte_score .rotar{
+  box-sizing: border-box;
+  margin: 0;
+  padding-left:20%;
+  padding-right: 20%;
+  text-align: center;
+}
+
+.conte_score .rotar button[type="submit"]{
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  height: 35px;
+  /* background: red; */
+}
+body{
+  text-align: justify;
+  background: #fff;
+  box-sizing: border-box;
+  width: 100%;
+}
+h2{
+  padding: 20px;
+  font-size: 35px;
+  color:#065F73;
+  box-sizing: border-box;
+}
+h3{
+  padding: 20px;
+  font-size: 27px;
+  color:#065F73;
+  box-sizing: border-box;
+}
+h4{
+  padding: 20px;
+  font-size: 20px;
+  color:#065F73;
+  box-sizing: border-box;
+}
+
+P{
+  font-size: 20px;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+
+button[type="submit"]{
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: #fb8c00;
+  color: #ffff;
+  height: 50px;
+  padding:0;
+  margin: 0;
+  width:100%;
+}
+/* button[type="submit"]:hover{
+  box-sizing: border-box;
+  background: #065600;
+  color: #ffff;
+  padding:0;
+  margin: 0;
+  width:100%;
+} */
+button[type="submit"]:active{
+  box-sizing: border-box;
+  background: #f24c27;
+  color: black;
+  padding:0;
+  margin: 0;
+  width:100%;
+}
+
+input[type=date], input[type=time], input[type=number] {
+  /* background: red; */
+  margin: 0px;
+  width: 27%;
+  height: 40px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border:1px solid #ccc;
+  font-size:20px;
+  border-radius: 10px;
+}
+
+input:focus, textarea:focus {
+  border:2px solid #1668C4;
+}
+
+input[type="submit"] {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  background: #fb8c00;
+  color:#ffff;
+  border-width: 1px;
+  border-color: #1F8DA6;
+  font-size: 30px;
+  width: 100%;
+  margin-left: 0%;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+/* input[type="submit"]:hover{
+  background: #f2ac57;
+  color: #ffff;
+  cursor: pointer;
+} */
+
+input[type="submit"]:active{
+  background: #f24c27;
+}
+@media only screen and (max-width:800px){
+
+
+  h2{
+    padding: 5px;
+    font-size: 20px;
+    color:#065F73;
+  }
+  h3{
+    padding: 5px;
+    font-size: 18px;
+    color:#065F73;
+  }
+  h4{
+    padding: 5px;
+    font-size: 16px;
+    color:#065F73;
+  }
+
+  P{
+    font-size: 15px;
+    padding-left: 10px;
+  }
+
+  /* form{
+    background: #1F8DA6;
+    color: #ffff;
+    width: 100%;
+    border:0px solid #ccc;
+    margin: 0px;
+    padding: 10px;
+    list-style: none;
+    box-sizing: border-box;
+    font-size: 15px;
+  } */
+
+
+
+}

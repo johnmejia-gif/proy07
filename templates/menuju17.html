@@ -1,0 +1,88 @@
+{% extends "layout_juego_golf.html" %}
+{% block content%}
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal_juego.css')}}"/>
+</head>
+<header>
+  <div class="crear_juego" id="fixed-tit">
+    <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
+    <li class="titulo_juego"><h2 >GRUPO {{grupo}}</h2>  </li>
+  </div>
+</header>
+<br><br><br><br>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alerta">
+      <h2>{{message}}</h2>
+    </div>
+
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+  <div class="form_jugadores">
+    <form action="{{url_for('gruposjuego')}}" method="post">
+      <input type="hidden" name="campo" value="{{campo}}">
+      <input type="hidden" name="modalidad" value="{{modalidad}}">
+      <input type="hidden" name="marcas" value="{{marcas}}">
+      <input type="hidden" name="grupo" value="{{grupo}}">
+      <input type="hidden" name="tgrupos" value="{{tgrupos}}">
+      <input type="hidden" name="configurar" value="no">
+      <input type="hidden" name="jugar" value="no">
+
+      <label for="usuario">Jugador 1 : </label>
+      <input class="jugadores" name="jug1" type="text" placeholder={{jug1}}>
+      <label for="usuario">Jugador 2 : </label>
+      <input class="jugadores" name="jug2" type="text" placeholder={{jug2}}>
+      <label for="usuario">Jugador 3 : </label>
+      <input class="jugadores" name="jug3" type="text" placeholder={{jug3}}>
+      <label for="usuario">Jugador 4 : </label>
+      <input class="jugadores" name="jug4" type="text" placeholder={{jug4}}>
+      <div class="rotar">
+        <div class="sig_ant">
+          <button type="submit" name="linea" value="ant" onclick=""><span class="icon-chevron-left"></button>
+        </div>
+        <div class="sig_ant">
+          <button type="submit" name="linea" value="sig" onclick=""><span class="icon-chevron-right"></button>
+        </div>
+      </div>
+      <div class="fingrupos">
+        <button type="submit" name="linea" value="terminar" onclick="">FINALIZAR</button>
+      </div>
+
+
+      <!-- <input id="submit" name="submit" type="submit" value="Grupos Creados"> -->
+    </form>
+  </div>
+<br><br><br><br>
+
+<!-- <h2><span class="icon-golf1"></span> cualquier cosa</h2> -->
+
+<div class="enlaces" id="fixed-bar">
+    <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list"></span></a></li>
+    <li ><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li>
+    <li class="presente"><a href="{{url_for('logout')}}"><span class="icon-cogs"></span></a></li> -->
+    <li><form  action="{{url_for('logout')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    </form></li>
+    <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
+    </form></li>
+    <li class="presente"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form></li>
+</div>
+
+
+
+{% endblock %}
