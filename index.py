@@ -42,6 +42,66 @@ class Campos:
             listacampos.append(arreglo[0])
         return listacampos
 
+'''CAMPOS COLOMBIA'''
+def datotalCampos(campo,marcas,tal): #recupera un dato (tal) de la base de campos_colombia
+    dbconfig = read_db_config()
+    q1="SELECT "
+    q2=" FROM campos_colombia WHERE campo=%s AND marcas=%s"
+    query=q1+tal+q2
+    data=(campo,marcas)
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        try:
+            row=cursor.fetchone()
+            dato=row[0]
+        except:
+            dato='errror'
+    except Error as error:
+        dato='errror'
+    finally:
+        cursor.close()
+        conn.close()
+    return dato
+def recuperaMarcasCampos(campo):
+    dbconfig = read_db_config()
+    query="SELECT marcas FROM campos_colombia WHERE campo=%s "
+    data=(campo,)
+    marcas=[]
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        try:
+            row=cursor.fetchall()
+            dato=row
+        except:
+            dato='errror'
+    except Error as error:
+        dato='errror'
+    finally:
+        cursor.close()
+        conn.close()
+    for lin in dato:
+        marcas.append(lin[0])
+    return marcas
+def recuperaDatosCampos(campo,marcas):
+    dbconfig = read_db_config()
+    query="SELECT * FROM campos_colombia WHERE campo=%s and marcas=%s "
+    data=(campo,marcas)
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        extraccion=cursor.fetchone()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return extraccion
+
 '''USUARIOS'''
 def existeUsuarios(co): #revisa la base de datos para saber si el usuario existe, devueve si ó n0
     query=" SELECT nombre FROM usuarios WHERE correo = %s "
@@ -666,7 +726,7 @@ def recuperaTarjetasGolf(fec,cam):
         cursor.close()
         conn.close()
     return tarjetas
-'''JUEGOS DE GOLF'''
+'''JUEGOS DE GOLF TARJETAS COMPLETAS'''
 def creaListaJuegos(campo,fec,modalidad,co):
     dbconfig = read_db_config()
     q1="INSERT INTO lista_juegos (campo,jugadores,fecha,modalidad,creador) VAlUES ("
@@ -865,8 +925,23 @@ def recuperaNgrupoTarjetasJuegoGolf(numero_juego,jugador):
         cursor.close()
         conn.close()
     return extraccion[0]
+def recuperaJugTarjetasJuegoGolf(numero_juego,jugador):
+    query=" SELECT jug FROM tarjetas_golf WHERE numero_juego= %s AND jugador = %s "
+    data=(numero_juego,jugador)
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        extraccion=cursor.fetchone()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return extraccion[0]
 def recuperaNumerojugeoTarjetasJuegoGolf(fecha,jugador):
-    query=" SELECT numero_juego FROM tarjetas_golf WHERE fecha= %s AND jugador= %s"
+    query=" SELECT numero_juego FROM tarjetas_golf WHERE fecha>= %s AND jugador= %s"
     data=(fecha,jugador)
     dbconfig = read_db_config()
     try:
@@ -880,6 +955,130 @@ def recuperaNumerojugeoTarjetasJuegoGolf(fecha,jugador):
         cursor.close()
         conn.close()
     return nums_juegos
+def recuperaMarcaTarjetasJuegoGolf(numero_juego,grupo,jug):
+    query=" SELECT marcas FROM tarjetas_golf WHERE numero_juego= %s AND grupo = %s AND jug=%s "
+    data=(numero_juego,grupo,jug)
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        extraccion=cursor.fetchone()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return extraccion[0]
+def recuperaGrupoTarjetasJuegoGolf(numero_juego,jugador):
+    query=" SELECT grupo FROM tarjetas_golf WHERE numero_juego= %s AND jugador=%s "
+    data=(numero_juego,jugador)
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        extraccion=cursor.fetchone()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return extraccion[0]
+
+'''CALCULOS NETOS Y STABLEFORD'''
+def existeNetos(numero_juego,jugador):
+    query=" SELECT campo FROM netos_stableford WHERE numero_juego = %s AND jugador = %s "
+    data=(numero_juego,jugador)
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        row=cursor.fetchone()
+        if row is not None:
+            encontrado='si'
+            row=cursor.fetchone()
+        else:
+            encontrado='no'
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return encontrado
+def creaNetos(tarjeta):
+    dbconfig = read_db_config()
+    q1="INSERT INTO netos_stableford (numero_juego,grupo,jug,jugador,nombre,handicap,campo,net1,net2,net3,net4,net5,net6,net7,net8,net9,net10,net11,net12,net13,net14,net15,net16,net17,net18,n_ida,n_vuelta,n_total,stb1,stb2,stb3,stb4,stb5,stb6,stb7,stb8,stb9,stb10,stb11,stb12,stb13,stb14,stb15,stb16,stb17,stb18,stb_ida,stb_vuelta,stb_total) VALUES ("
+    q2="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    query=q1+q2
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,tarjeta)
+        conn.commit()
+    except Error as error:
+        dato='errror'
+    finally:
+        cursor.close()
+        conn.close()
+def cambiadatotalNetos(numero_juego,grupo,jug,dato,valor):
+    dbconfig = read_db_config()
+    q1="UPDATE netos_stableford SET "
+    q2= " = %s WHERE numero_juego = %s AND grupo=%s AND jug=%s "
+    query=q1+dato+q2
+    data=(valor,numero_juego,grupo,jug)
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        conn.commit()
+    except Error as error:
+        dato='errror'
+    finally:
+        cursor.close()
+        conn.close()
+def recuperaNetos(numero_juego):
+    query=" SELECT * FROM netos_stableford WHERE numero_juego= %s "
+    data=(numero_juego,)
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query,data)
+        tarjetas=cursor.fetchall()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return tarjetas
+def ordenmenormayor(lista,pos):
+    nlista=lista
+    largo=len(nlista)
+    for i in range(largo):
+        for j in range((i+1),largo):
+            fila1=nlista[i]
+            fila2=nlista[j]
+            if fila1[pos]<fila2[pos]:
+                continue
+            else:
+                nlista[i]=fila2
+                nlista[j]=fila1
+    return nlista
+def ordenmayormenor(lista,pos):
+    nlista=lista
+    largo=len(nlista)
+    for i in range(largo):
+        for j in range((i+1),largo):
+            fila1=nlista[i]
+            fila2=nlista[j]
+            if fila1[pos]>fila2[pos]:
+                continue
+            else:
+                nlista[i]=fila2
+                nlista[j]=fila1
+    return nlista
 
 '''FUNCIONES TURNOS'''
 def TotalTurnos(hi,mi,fm,hf,mf,txr,desa):#devuelve una lista con [numero de turnos antes del cruce, turnos en total del día]
@@ -1036,6 +1235,7 @@ def home():
     flask.session["username"]=''
     flask.session["course"]=''
     flask.session["tusu"]=''
+    flask.session["numerojuego"]=0
     return render_template('autenticacion.html')
 
 @app.route('/logout', methods=["GET","POST"])
@@ -1045,8 +1245,22 @@ def logout():
     flask.session["username"]=''
     flask.session["course"]=''
     flask.session["tusu"]=''
+    flask.session["numerojuego"]=0
     return flask.redirect(flask.url_for("home"))
 
+@app.route('/autentication/home', methods=["GET", "POST"]) #es como decirle: esta  es la página principal, es la turata p4ra la apgina principal
+def casa():
+    if (flask.request.method == "POST"):
+        return render_template('new_res_pos_ju_auten.html')
+    else:
+        return render_template("autenticacion.html")
+
+@app.route('/autentication2', methods=["POST","GET"])
+def inicioagenadmientos():
+    if (flask.request.method == "POST"):
+        return render_template('res_pos_jug_autentic.html')
+    else:
+        return render_template("autenticacion.html")
 @app.route('/autentication', methods=["POST","GET"])   #Valida los datos que viene del formulario de autenticacion en 'inicio'
 def autenticar():
     if (flask.request.method == "POST"):
@@ -1066,7 +1280,7 @@ def autenticar():
                 tusuario=datotalUsuarios(co=usuario,tal='tipo') #lee el tipo de usuario
                 flask.session["tusu"]=tusuario
                 if tusuario==1:
-                    return flask.render_template("res_pos_jug_autentic.html") #direcciona a formulario positivo de autenticacion de jugador
+                    return flask.render_template("new_res_pos_ju_auten.html") #direcciona a formulario positivo de autenticacion de jugador
                 elif tusuario==2:
                     return flask.render_template("res_pos_adclu_autentic.html") # direcciona a formulario positivo de autenticacion administrador de club
                 elif tusuario==0:
@@ -1128,29 +1342,51 @@ def terminaregistro():
     registro=False
     if(flask.request.method == "POST"):
         usuario = flask.request.form["usuario"]
+        usuario2 = flask.request.form["usuario2"]
         nombre = flask.request.form["nombre"]
         apellido = flask.request.form["apellido"]
-#        contrasena1 = flask.request.form["contrasena1"]
-#        contrasena2 = flask.request.form["contrasena2"]
+        contrasena1 = flask.request.form["contrasena1"]
+        contrasena2 = flask.request.form["contrasena2"]
         identificacion = flask.request.form["identificacion"]
         club = flask.request.form["club"]
-        indice_fedegolf = flask.request.form["indice_fedegolf"]
+        indice_fedegolf =float( flask.request.form["indice_fedegolf"])
         cod_fedegolf = flask.request.form["cod_fedegolf"]
         aval_club='NO'     #validar los avales mas adelante
         tipo_usuario=1
         fecha=date.today()
         fecha=str(fecha)
-        contrasegna=GeneraClave()
+        if usuario!=usuario2:
+            campos=Campos()
+            campos.leerCampos()
+            lista_campos=campos.devolverCampos()
+            largo=len(lista_campos)
+            flash('NO coinciden los dos correos escritos')
+            return render_template('registro.html',campos=lista_campos, largo=largo)
+        if contrasena1!=contrasena2:
+            campos=Campos()
+            campos.leerCampos()
+            lista_campos=campos.devolverCampos()
+            largo=len(lista_campos)
+            flash('NO coinciden las contraseñas')
+            return render_template('registro.html',campos=lista_campos, largo=largo)
+        contrasegna=str(contrasena1)
+        # contrasegna=GeneraClave()
         encontrado=existeUsuarios(co=usuario)
-        print(encontrado)
         if encontrado=='si':
-            return render_template('error_registro.html', error='****ERROR****    Usuario Ya Registrado en TEE-SHOT')
+            campos=Campos()
+            campos.leerCampos()
+            lista_campos=campos.devolverCampos()
+            largo=len(lista_campos)
+            flash('Usuario Ya Registrado en TEE-SHOT')
+            return render_template('registro.html',campos=lista_campos, largo=largo)
         else:
             crearUsuario(co=usuario,no=nombre,ap=apellido,cn=contrasegna,id=identificacion,cl=club,ac=aval_club,cf=cod_fedegolf,ind=indice_fedegolf,fr=fecha,ty=tipo_usuario)
             msg = Message('Gracias por inscribirse en TEE-SHOT', sender = app.config['MAIL_USERNAME'], recipients=[usuario])
             msg.html = render_template('mail01.html', nombre=nombre,usuario=usuario, contrasegna=contrasegna)
             mail.send(msg)
-            return render_template('result_registro.html', mensaje='Felicitaciones. Su registro en TEE-SHOT ha sido exitoso')
+            flash('Felicitaciones. Su registro en TEE-SHOT ha sido exitoso')
+            return render_template("autenticacion.html")
+            # return render_template('result_registro.html', mensaje='Felicitaciones. Su registro en TEE-SHOT ha sido exitoso')
     else:
         return render_template("autenticacion.html")
 
@@ -2335,38 +2571,53 @@ def gruposjuego():
     if(flask.request.method == "POST"):
         campo=flask.request.form["campo"]
         modalidad=flask.request.form["modalidad"]
-        marcas=flask.request.form["marcas"]
+        fecha=flask.request.form["fecha"]
+        # marcas=flask.request.form["marcas"]
         grupo=flask.request.form["grupo"]
         linea=flask.request.form["linea"] #Es sig ó ant
         tgrupos=flask.request.form["tgrupos"]
-        fecha=str(date.today())
+        # fecha=str(date.today())
         tgrupos=int(tgrupos)
         grupo=int(grupo)
+        marcas=recuperaMarcasCampos(campo=campo)
         if (flask.session["numerojuego"])==0:
             creaListaJuegos(campo=campo,fec=fecha,modalidad=modalidad,co=flask.session["username"])
             flask.session["numerojuego"]=ultimoJuegoCreado()
-            jug1='e-mail/usuario_TEE-SHOT'
-            jug2='e-mail/usuario_TEE-SHOT'
-            jug3='e-mail/usuario_TEE-SHOT'
-            jug4='e-mail/usuario_TEE-SHOT'
-            return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1=jug1,jug2=jug2,jug3=jug3,jug4=jug4)
+            jug1='e-mail'
+            jug2='e-mail'
+            jug3='e-mail'
+            jug4='e-mail'
+            return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1=jug1,jug2=jug2,jug3=jug3,jug4=jug4,fecha=fecha)
         jug1=flask.request.form["jug1"]
         jug2=flask.request.form["jug2"]
         jug3=flask.request.form["jug3"]
         jug4=flask.request.form["jug4"]
+        marca1=flask.request.form["marca1"]
+        marca2=flask.request.form["marca2"]
+        marca3=flask.request.form["marca3"]
+        marca4=flask.request.form["marca4"]
         jugadores=[jug1,jug2,jug3,jug4]
+        marcasel=[marca1,marca2,marca3,marca4]
         print(jugadores)
+        numero_juego=flask.session["numerojuego"]
         for i in range(4):
-            numero_juego=flask.session["numerojuego"]
             jug=i+1
             jugador=jugadores[i]
             if (existeUsuarios(co=jugador))=='si':
                 comprobar=existeJugadorTarjetaJuegoGolf(numero_juego=numero_juego,jugador=jugador)
                 if comprobar=='si':
                     flash('EL usuario '+jugador+' ya está inscrito')
-                    return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1='e-mail/usuario_TEE-SHOT',jug2='e-mail/usuario_TEE-SHOT',jug3='e-mail/usuario_TEE-SHOT',jug4='e-mail/usuario_TEE-SHOT')
+                    return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1='e-mail',jug2='e-mail',jug3='e-mail',jug4='e-mail',fecha=fecha)
                 nombre= datotalUsuarios(co=jugador,tal="nombre") +" " + datotalUsuarios(co=jugador,tal="apellido")
-                handicap=0
+                indice=float(datotalUsuarios(co=jugador,tal="indice"))
+                curva=datotalCampos(campo=campo,marcas=marcasel[i],tal='curva')
+                handi=(indice*curva/113)
+                enhandi=int(handi)
+                residuo=handi-enhandi
+                if residuo>=0.5:
+                    handicap=enhandi+1
+                else:
+                    handicap=enhandi
             else:
                 nombre=jugadores[i]
                 handicap=0
@@ -2374,13 +2625,16 @@ def gruposjuego():
             if existar=='si':
                 jugbase=recuperaJugadorTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
                 if jugador!='' and jugador != jugbase:
+
                     cambiadatotalTarjetaJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug,dato="jugador",valor=jugador)
                     cambiadatotalTarjetaJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug,dato="nombre",valor=nombre)
+                marcabase=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
+                if marcasel[i]!=marcabase and marcasel[i]!='':
+                    cambiadatotalTarjetaJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug,dato="marcas",valor=marcasel[i])
             else:
                 if jugador!='':
-                    tarjeta=[str(fecha),'',jugador,'',campo,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'','',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,numero_juego,grupo,jug,nombre,handicap,marcas]
+                    tarjeta=[str(fecha),'',jugador,'',campo,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'','',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,numero_juego,grupo,jug,nombre,handicap,marcasel[i]]
                     creaTarjetaJuegoGolf(tarjeta)
-
         if linea=='sig':
             if grupo==tgrupos:
                 grupo=grupo #seria 1 rotando
@@ -2406,7 +2660,8 @@ def gruposjuego():
                 linea2.append(marquilla)
                 tarjetas2.append(linea2)
             ltarjetas=len(tarjetas)
-            return render_template("menuju18.html",tarjetas=tarjetas2,ltarjetas=ltarjetas,campo=campo,modalidad=modalidad)
+            marquillas=recuperaMarcasCampos(campo=campo)
+            return render_template("menuju18.html",tarjetas=tarjetas2,campo=campo,marquillas=marquillas,modalidad=modalidad)
         njugadores=[]
         for i in range(4):
             jug=i+1
@@ -2415,13 +2670,13 @@ def gruposjuego():
                 njug=recuperaJugadorTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
                 njugadores.append(njug)
             else:
-                njug='e-mail/usuario_TEE-SHOT'
+                njug='e-mail'
                 njugadores.append(njug)
         jug1=njugadores[0]
         jug2=njugadores[1]
         jug3=njugadores[2]
         jug4=njugadores[3]
-        return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1=jug1,jug2=jug2,jug3=jug3,jug4=jug4)
+        return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1=jug1,jug2=jug2,jug3=jug3,jug4=jug4,fecha=fecha)
     else:
         return render_template("autenticacion.html")
 
@@ -2431,14 +2686,14 @@ def gruposjuegocambios():
     # modalidad=flask.request.form["modalidad"]
     marcas=[]
     numero_juego=flask.session["numerojuego"]
-    listajuego=recuperaListaJuegos(numero_juego=7)
+    listajuego=recuperaListaJuegos(numero_juego=numero_juego)
     campo=listajuego[1]
     modalidad=listajuego[4]
-    tarjetas=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+    tarjetastotal=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
     tarjetas2=[]
     configurar=flask.request.form["configurar"]
     if configurar=='si': #Responder a solicitud de configurar
-        for linea in tarjetas:
+        for linea in tarjetastotal:
             linea2=[]
             for i in range(55):
                 linea2.append(linea[i])
@@ -2449,14 +2704,22 @@ def gruposjuegocambios():
             linea2.append(handiquillo)
             linea2.append(marquilla)
             tarjetas2.append(linea2)
-        return render_template("menuju18.html",tarjetas=tarjetas2,campo=campo,modalidad=modalidad)
+        marquillas=recuperaMarcasCampos(campo=campo)
+        return render_template("menuju18.html",tarjetas=tarjetas2,campo=campo,marquillas=marquillas,modalidad=modalidad)
     jugar=flask.request.form["jugar"]
     if jugar=='si': #Responder a solicitud de jugar
         grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
         tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
         hoyo=1
-        par="COMPLETAR"
-        ventaja="COMPLETAR"
+        co=flask.session["username"]
+        jug=recuperaJugTarjetasJuegoGolf(numero_juego=numero_juego,jugador=co)
+        marca=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
+        parhoyo='par'+(str(hoyo))
+        par=datotalCampos(campo=campo,marcas=marca,tal=parhoyo)
+        venhoyo='ven'+(str(hoyo))
+        ventaja=datotalCampos(campo=campo,marcas=marca,tal=venhoyo)
+        dishoyo='dis'+(str(hoyo))
+        distancia=datotalCampos(campo=campo,marcas=marca,tal=dishoyo)
         tarjetas2=[]
         for linea in tarjetas:
             linea2=[]
@@ -2471,9 +2734,9 @@ def gruposjuegocambios():
             tarjetas2.append(linea2)
             poshoyo=4+hoyo
             posput=27+hoyo
-        return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput)
+        return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput,distancia=distancia)
 
-    for linea in tarjetas:
+    for linea in tarjetastotal:
         linea2=[]
         for i in range(55):
             linea2.append(linea[i])
@@ -2493,10 +2756,10 @@ def gruposjuegocambios():
             cambiadatotalTarjetaJuegoGolf(numero_juego=numero_juego,grupo=linea[50],jug=linea[51],dato="handicap",valor=handicap)
             linea2[53]=handicap
         marcas.append(marca)
-    ltarjetas=len(tarjetas)
     terminar=flask.request.form["terminar"]
     if terminar=="actualizar":
-        return render_template("menuju18.html",tarjetas=tarjetas2,campo=campo,modalidad=modalidad)
+        marquillas=recuperaMarcasCampos(campo=campo)
+        return render_template("menuju18.html",tarjetas=tarjetas2,campo=campo,marquillas=marquillas,modalidad=modalidad)
     else:
         encontrado=existeJugadorTarjetaJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
         if encontrado=='si':
@@ -2524,15 +2787,12 @@ def gruposjuegocambios():
             flash('El juego ha sido creado. Usted no está incluido en los jugadores inscritos')
             return render_template('res_pos_jug_autentic.html')
 
-
 @app.route('/playing_golf/score_hole_by_hole',methods=["GET","POST"])
 def scorejuego():
     lin=flask.request.form["lin"]
     # campo=flask.request.form["campo"]
     modalidad=flask.request.form["modalidad"]
     hoyo=int(flask.request.form["hoyo"])
-    par=flask.request.form["par"]
-    ventaja=flask.request.form["ventaja"]
     numero_juego=flask.session["numerojuego"]
     grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
     tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
@@ -2588,19 +2848,30 @@ def scorejuego():
             hoyo=hoyo-1;
     poshoyo=hoyo+4
     posput=hoyo+27
-
-    return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput)
+    co=flask.session["username"]
+    jug=recuperaJugTarjetasJuegoGolf(numero_juego=numero_juego,jugador=co)
+    marca=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
+    parhoyo='par'+(str(hoyo))
+    par=datotalCampos(campo=campo,marcas=marca,tal=parhoyo)
+    venhoyo='ven'+(str(hoyo))
+    ventaja=datotalCampos(campo=campo,marcas=marca,tal=venhoyo)
+    dishoyo='dis'+(str(hoyo))
+    distancia=datotalCampos(campo=campo,marcas=marca,tal=dishoyo)
+    return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput,distancia=distancia)
 
 @app.route('/playing_golf/access_game',methods=["GET","POST"])
 def accederjuego():
-    fecha=date.today()
+    fecha2=date.today()
+    fecha1=fecha2+timedelta(days=-1)
     jugador=flask.session["username"]
-    juegos=recuperaNumerojugeoTarjetasJuegoGolf(fecha=fecha,jugador=jugador)
-    ljuegos=len(juegos)
-    if ljuegos==0:
+    juegos1=recuperaNumerojugeoTarjetasJuegoGolf(fecha=fecha1,jugador=jugador)
+    # juegos2=recuperaNumerojugeoTarjetasJuegoGolf(fecha=fecha2,jugador=jugador)
+    # ljuegos2=len(juegos2)
+    ljuegos1=len(juegos1)
+    if ljuegos1==0:
         flash('Usted no está creado en ningún juego, puede crear un juego')
-        return render_template('res_pos_jug_autentic.html')
-    return render_template('menuju20.html',juegos=juegos,ljuegos=ljuegos)
+        return render_template('new_res_pos_ju_auten.html')
+    return render_template('menuju20.html',juegos1=juegos1)
 
 @app.route('/playing_golf/access_game/init',methods=["GET","POST"])
 def enlaceajuego():
@@ -2612,8 +2883,15 @@ def enlaceajuego():
     grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
     tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
     hoyo=1
-    par="COMPLETAR"
-    ventaja="COMPLETAR"
+    co=flask.session["username"]
+    jug=recuperaJugTarjetasJuegoGolf(numero_juego=numero_juego,jugador=co)
+    marca=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
+    parhoyo='par'+(str(hoyo))
+    par=datotalCampos(campo=campo,marcas=marca,tal=parhoyo)
+    venhoyo='ven'+(str(hoyo))
+    ventaja=datotalCampos(campo=campo,marcas=marca,tal=venhoyo)
+    dishoyo='dis'+(str(hoyo))
+    distancia=datotalCampos(campo=campo,marcas=marca,tal=dishoyo)
     tarjetas2=[]
     for linea in tarjetas:
         linea2=[]
@@ -2628,7 +2906,178 @@ def enlaceajuego():
         tarjetas2.append(linea2)
     poshoyo=hoyo+4
     posput=hoyo+27
-    return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput)
+    return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput,distancia=distancia)
+
+@app.route('/playing_golf/results/stroke_play',methods=["GET","POST"])
+def calculostrokeplay():
+    if(flask.request.method == "POST"):
+        numero_juego=flask.session["numerojuego"]
+        jugador=flask.session["username"]
+        existeneto=existeNetos(numero_juego=numero_juego,jugador=jugador)
+        tars=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+        tar1=tars[0]
+        campo=tar1[4]
+        del tars
+        if existeneto=='no':
+            tarjetas=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            for tarjeta in tarjetas:
+                grupo=tarjeta[50]
+                jug=tarjeta[51]
+                jugadorcito=tarjeta[2]
+                nombre=tarjeta[52]
+                campo=tarjeta[4]
+                handicap=tarjeta[53]
+                netos0=[numero_juego,grupo,jug,jugadorcito,nombre,handicap,campo,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                creaNetos(tarjeta=netos0)
+        return render_template('menuju21.html',campo=campo)
+    else:
+        return render_template("autenticacion.html")
+
+@app.route('/playing_golf/results/stroke_play/showing',methods=["GET","POST"])
+def resultadostrokeplay():
+    if(flask.request.method == "POST"):
+        resultado=flask.request.form["resultado"]
+        numero_juego=flask.session["numerojuego"]
+        if resultado=='neto':
+            tarjetas=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            for tarjeta in tarjetas:
+                netoida=0
+                netovuelta=0
+                netotal=0
+                marcas=tarjeta[54]
+                campo=tarjeta[4]
+                for i in range(1,19):
+                    hoyo=str(i)
+                    poscore=i+4
+                    score=tarjeta[poscore]
+                    if score>0:
+                        handicap=tarjeta[53]
+                        prim=float(handicap/18)
+                        entprim=int(prim)
+                        saldoprim=(prim-entprim)*18
+                        if i>saldoprim:
+                            saldo=0
+                        else:
+                            saldo=1
+                        venhoyo=entprim+saldo
+                        venhoyo=int(venhoyo)
+
+                        parito='par'+hoyo
+                        parhoyo=datotalCampos(campo=campo,marcas=marcas,tal=parito)
+                        neto=score-venhoyo-parhoyo
+                        if i<10:
+                            netoida=netoida+neto
+                        else:
+                            netovuelta=netovuelta+neto
+                        netotal=netotal+neto
+                        cualneto='net'+hoyo
+                        grupo=tarjeta[50]
+                        jug=tarjeta[51]
+                        cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato=cualneto,valor=neto)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_ida',valor=netoida)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_vuelta',valor=netovuelta)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_total',valor=netotal)
+
+
+            lista1=recuperaNetos(numero_juego=numero_juego)
+            netosida=ordenmenormayor(lista=lista1,pos=25)
+            lista2=recuperaNetos(numero_juego=numero_juego)
+            netosvuelta=ordenmenormayor(lista=lista2,pos=26)
+            lista3=recuperaNetos(numero_juego=numero_juego)
+            netostotal=ordenmenormayor(lista=lista3,pos=27)
+            tar1=netosida[0]
+            campo=tar1[6]
+            return render_template('menuju22.html',netosida=netosida,netosvuelta=netosvuelta,netostotal=netostotal,campo=campo)
+        if resultado=='stableford':
+            tarjetas=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            for tarjeta in tarjetas:
+                stbida=0
+                stbvuelta=0
+                stbtotal=0
+                marcas=tarjeta[54]
+                campo=tarjeta[4]
+                for i in range(1,19):
+                    hoyo=str(i)
+                    poscore=i+4
+                    score=tarjeta[poscore]
+                    if score>0:
+                        handicap=tarjeta[53]
+                        prim=float(handicap/18)
+                        entprim=int(prim)
+                        saldoprim=(prim-entprim)*18
+                        if i>saldoprim:
+                            saldo=0
+                        else:
+                            saldo=1
+                        venhoyo=entprim+saldo
+                        venhoyo=int(venhoyo)
+                        neto=score-venhoyo
+                        parito='par'+hoyo
+                        parhoyo=datotalCampos(campo=campo,marcas=marcas,tal=parito)
+                        if neto<=(parhoyo+1):
+                            stableford=parhoyo+2-neto
+                        else:
+                            stableford=0
+                        if i<10:
+                            stbida=stbida+stableford
+                        else:
+                            stbvuelta=stbvuelta+stableford
+                        stbtotal=stbtotal+stableford
+                        cualstb='stb'+hoyo
+                        grupo=tarjeta[50]
+                        jug=tarjeta[51]
+                        cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato=cualstb,valor=stableford)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='stb_ida',valor=stbida)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='stb_vuelta',valor=stbvuelta)
+                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='stb_total',valor=stbtotal)
+
+
+            stbl1=recuperaNetos(numero_juego=numero_juego)
+            stableida=ordenmayormenor(lista=stbl1,pos=46)
+            stbl2=recuperaNetos(numero_juego=numero_juego)
+            stablevuelta=ordenmayormenor(lista=stbl2,pos=47)
+            stbl3=recuperaNetos(numero_juego=numero_juego)
+            stabletotal=ordenmayormenor(lista=stbl3,pos=48)
+            tar1=stabletotal[0]
+            campo=tar1[6]
+            return render_template('menuju23.html',stableida=stableida,stablevuelta=stablevuelta,stabletotal=stabletotal,campo=campo)
+        if resultado=='gross':
+            gros1=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            grosida=ordenmenormayor(lista=gros1,pos=23)
+            gros2=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            grosvuelta=ordenmenormayor(lista=gros2,pos=24)
+            gros3=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            grostotal=ordenmenormayor(lista=gros3,pos=25)
+            tar1=grostotal[0]
+            campo=tar1[4]
+            return render_template('menuju24.html',grosida=grosida,grosvuelta=grosvuelta,grostotal=grostotal,campo=campo)
+        if resultado=='put':
+            put1=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            putida=ordenmenormayor(lista=put1,pos=46)
+            put2=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            putvuelta=ordenmenormayor(lista=put2,pos=47)
+            put3=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
+            puttotal=ordenmenormayor(lista=put3,pos=48)
+            tar1=puttotal[0]
+            campo=tar1[4]
+            return render_template('menuju25.html',putida=putida,putvuelta=putvuelta,puttotal=puttotal,campo=campo)
+    else:
+        return render_template("autenticacion.html")
+
+@app.route('/playing_golf/results/showing_cards',methods=["GET","POST"])
+def mostrartarjetasgrupo():
+    if(flask.request.method == "POST"):
+        numero_juego=flask.session["numerojuego"]
+        jugador=flask.session["username"]
+        grupo=recuperaGrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=jugador)
+        tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
+        tarj1=tarjetas[0]
+        campo=tarj1[4]
+        marcas=tarj1[54]
+        datcampo=recuperaDatosCampos(campo=campo,marcas=marcas)
+        return render_template('menuju26.html',tarjetas=tarjetas,datcampo=datcampo)
+    else:
+        return render_template("autenticacion.html")
 
 
 if __name__ == '__main__':  #para mantener activa la página

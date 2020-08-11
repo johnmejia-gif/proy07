@@ -13,6 +13,16 @@
       <br>
       <p>Para Registrarte como usuario de TEE-SHOT, debes diligenciar por lo menos los campos obligatorios (**)</p>
       <p>{{dato}}</p>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alerta">
+            <h2>{{message}}</h2>
+          </div>
+
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
     <form action="{{url_for('terminaregistro')}}" method="POST">
 
       <label for="usuario">Usuario (e-mail) **</label>
@@ -27,12 +37,11 @@
       <label for="usuario">Apellidos **</label>
       <input id="usuario" name="apellido" required type="text" value="">
 
-  <!--    <label for="contrasena">Contraseña **</label>
+     <label for="contrasena">Contraseña **</label>
       <input id="contrasena" name="contrasena1" required type="password" value="">
 
       <label for="contrasena">Confirme la Contraseña **</label>
       <input id="contrasena" name="contrasena2" required type="password" value="">
--->
 
       <label for="usuario">Club **</label>
       <select name="club">

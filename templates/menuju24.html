@@ -1,0 +1,111 @@
+{% extends "layout_juego_golf.html" %}
+{% block content%}
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal_juego.css')}}"/>
+</head>
+<header>
+  <div class="crear_juego" id="fixed-tit">
+    <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
+    <li class="titulo_juego"><h2 >RESULTADOS</h2>  </li>
+  </div>
+</header>
+<br><br><br><br>
+<h2 class="tit_cambios">{{campo}}</h2>
+<div class="resultados">
+  <div class="tabla_result">
+    <table>
+      <h2>GROSS TOTAL</h2>
+      <tr>
+        <td class="col1"></td>
+        <td class="col2"></td>
+        <td class="col3"></td>
+      </tr>
+      {% for linea in grostotal %}
+      <tr>
+        {% if linea[2]==linea[52]%}
+        <td class="col1"></td>
+        {% else %}
+        <td class="col1" ><span class="icon-golf1"></td>
+        {% endif %}
+        <td class="col2"><p>{{linea[52]}}</p> <h6>Handicap: {{linea[53]}}</h6></td>
+        <td class="col3"><p>{{linea[25]}}</p></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="tabla_result">
+    <table>
+      <h2>GROSS IDA</h2>
+      <tr>
+        <td class="col1"></td>
+        <td class="col2"></td>
+        <td class="col3"></td>
+      </tr>
+      {% for linea in grosida %}
+      <tr>
+        {% if linea[2]==linea[52]%}
+        <td class="col1"></td>
+        {% else %}
+        <td class="col1"><span class="icon-golf1"></td>
+        {% endif %}
+        <td class="col2"><p>{{linea[52]}}</p> <h6>Handicap: {{linea[53]}}</h6></td>
+        <td class="col3"><p>{{linea[23]}}</p></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="tabla_result">
+    <table>
+      <h2>GROSS VUELTA</h2>
+      <tr>
+        <td class="col1"></td>
+        <td class="col2"></td>
+        <td class="col3"></td>
+      </tr>
+      {% for linea in grosvuelta %}
+      <tr>
+        {% if linea[2]==linea[52]%}
+        <td class="col1"></td>
+        {% else %}
+        <td class="col1"><span class="icon-golf1"></td>
+        {% endif %}
+        <td class="col2"><p>{{linea[52]}}</p> <h6>Handicap: {{linea[53]}}</h6></td>
+        <td class="col3"><p>{{linea[24]}}</p></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br>
+
+<div class="enlaces" id="fixed-bar">
+    <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list"></span></a></li>
+    <li ><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li>
+    <li class="presente"><a href="{{url_for('logout')}}"><span class="icon-cogs"></span></a></li> -->
+    <li><form  action="{{url_for('casa')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
+    </form></li>
+    <li class="presente"><form  action="{{url_for('calculostrokeplay')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    </form></li>
+    <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="configurar" value="no">
+      <button type="submit" name="jugar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form></li>
+    <li><form  action="{{url_for('mostrartarjetasgrupo')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
+    </form></li>
+    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="configurar" value="si">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form></li>
+</div>
+
+
+
+{% endblock %}

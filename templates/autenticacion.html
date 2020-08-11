@@ -6,6 +6,16 @@
 </head>
 <body>
 
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alerta">
+        <h2>{{message}}</h2>
+      </div>
+
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
   <div class="contenedor">
     <div class="login">
@@ -29,8 +39,7 @@
         <article>
           <h3>¿Qué es TEE-SHOT?</h3>
           <p>TEE-SHOT es el sitio donde los juadores y amantes del GOLF podrán encontrar todas las soluciones
-            a sus necesidades, de tal manera que en un solo sitio, todas sus expectativas se puedan resolver en entorno
-            mediante la web en un solo sitio.
+            a sus necesidades, de tal manera que en un solo sitio, todas sus expectativas se puedan resolver mediante la web en un solo sitio.
           </p>
         </article>
         <br>

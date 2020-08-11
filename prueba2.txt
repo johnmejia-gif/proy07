@@ -1,0 +1,264 @@
+Aposentos;Azules;70.6;128;4
+Aposentos;Blancas;68.3;127;4
+Aposentos;Rojas;69.4;130;4
+Carmel;Azules;60.9;131;3
+Carmel;Blancas;67.5;128;3
+Carmel;Rojas;69.9;131;3
+CC Armenia;Azules;70.1;124;4
+CC Armenia;B/R;74.6;142;4
+CC Armenia;Blancas;67.9;122;4
+CC Armenia;Doradas;65.1;114;4
+CC Armenia;Rojas;70.5;133;4
+CC Bucaramanga;Azules;70.5;136;4
+CC Bucaramanga;Blancas;69.4;132;4
+CC Bucaramanga;B/R;74.8;134;4
+CC Bucaramanga;Rojas;71.2;129;4
+Casa de Campo;Azules;74.4;140;5
+Casa de Campo;Blancas;72.9;125;5
+Casa de Campo;B/R;79;146;5
+Casa de Campo;Rojas;74;137;5
+CC Cali;Amarillas;67.6;133;4
+CC Cali;Azules;74.2;146;4
+CC Cali;Blancas;71.1;142;4
+CC Cali;B/R;77.2;146;4
+CC Cali;Rojas;72.9;135;4
+CC Cartagena;Amarillas;65.3;116;4
+CC Cartagena;Azules;72.7;135;4
+CC Cartagena;Blancas;70.4;134;4
+CC Cartagena;B/R;77.9;140;4
+CC Cartagena;Rojas;70.5;125;4
+CC Ibague;Amarillas;66.7;123;4
+CC Ibague;Azules;72.7;144;4
+CC Ibague;Blancas;70.3;136;4
+CC Ibague;B/R;72.2;142;4
+CC Ibague;Negras;64.5;121;4
+CC Ibague;Rojas;70.9;130;4
+CC Ibague;Verdes;66.6;130;4
+CC Medellin;Azules;67.6;132;3
+CC Medellin;Blancas;64.8;118;3
+CC Medellin;B/R;71.1;131;3
+CC Medellin;Rojas;67;130;3
+Llano Grande;Amarillas;64.1;109;4
+Llano Grande;Azules;73.3;137;4
+Llano Grande;Blancas;69.7;131;4
+Llano Grande;Rojas;72;139;4
+CC Neiva;Azules;72;141;4
+CC Neiva;Blancas;70.5;129;4
+CC Neiva;B/R;75.8;134;4
+CC Neiva;Rojas;71.5;127;4
+CC Pereira;Azules;73.1;138;5
+CC Pereira;Blancas Cab;70.8;136;5
+CC Pereira;Blancas Dam;77.9;152;5
+CC Pereira;B/R Cab;69;136;5
+CC Pereira;B/R Dam;75.3;145;5
+CC Pereira;Doradas Cab Senior;66;125;5
+CC Pereira;Fucsia Cab;66.9;115;5
+CC Pereira;Fucsia Dam;71.8;132;5
+CC Pereira;B/R Super senior;65.9;121;5
+CC Pereira;Rojas Dam;76.1;137;5
+CC Popayan;Azules;70.3;128;4
+CC Popayan;Blancas;68;132;4
+CC Popayan;B/R;72.3;139;4
+CC Popayan;Rojas;66.9;118;4
+Club Manizales;Amarillas;66.1;113;4
+Club Manizales;Azules;71.5;138;4
+Club Manizales;Blancas;69.6;127;4
+Club Manizales;B/R;77.2;141;4
+Club Manizales;Rojas;70.4;126;4
+Club Militar;Amarillas;67.9;123;4
+Club Militar;Azules;71.6;135;4
+Club Militar;Blancas;71;131;4
+Club Militar;B/R;78;145;4
+Club Militar;Negras;62;113;4
+Club Militar;Rojas;74.8;140;4
+Club Militar;Verdes;64.4;130;4
+Jaraguay;Azules;70.4;144;4
+Jaraguay;Blancas;67.8;140;4
+Jaraguay;Rojas;69.8;135;4
+Corpoalbania;Blancas;66.4;128;4
+Corpoalbania;Rojas;68.2;127;4
+Karibana;Azules;71.3;128;4
+Karibana;Blancas;68.6;111;4
+Karibana;Negras;73.8;135;4
+Karibana;Rojas;69.4;112;4
+Country Club de Bquilla;Amarillas;66.4;113;4
+Country Club de Bquilla;Azules;71.3;129;4
+Country Club de Bquilla;Blancas;69.2;116;4
+Country Club de Bquilla;B/R;70.6;134;4
+Country Club de Bquilla;Negras;73.1;133;4
+Country Club de Bquilla;Rojas;70.8;114;4
+Fundadores;Rojas Cab;67.6;124;4
+Fundadores;Rojas Dam;73.5;140;4
+Fundadores;Blancas Cab;68.9;124;4
+Fundadores;Blancas Dam;76.7;151;4
+Fundadores;Azules Cab;72.4;126;4
+Fundadores;Azules Dam;80.5;155;4
+Pacos y Fabios;Rojas Cab;64.5;112;4
+Pacos y Fabios;Rojas Dam;69.9;134;4
+Pacos y Fabios;Blancas Cab;67;115;4
+Pacos y Fabios;Blancas Dam;72.2;137;4
+Pacos y Fabios;Azules Cab;68.8;123;4
+Pacos y Fabios;Azules Dam;73.6;138;4
+El Penon;Azules;74;133;5
+El Penon;Blancas;71.9;131;5
+El Penon;B/R;78.9;144;5
+El Penon;Rojas;73.4;128;5
+El Rancho;Amarillas;66.7;125;4
+El Rancho;Azules;71.1;134;4
+El Rancho;Blancas;69.8;133;4
+El Rancho;B/R;75.6;148;4
+El Rancho;Rojas;72;135;4
+El Rincon;Amarillas Cab;68.4;124;4
+El Rincon;Amarillas Dam;73.5;139;4
+El Rincon;Azules;72.8;127;4
+El Rincon;Blancas;71.6;125;4
+El Rincon;Negras;75.4;137;4
+El Rincon;Rojas;71.9;145;4
+El Rincon;Rojas Cab;67.3;125;4
+El Rodeo;Azules;72.3;137;4
+El Rodeo;Blancas;70.7;133;4
+El Rodeo;B/R;76.8;142;4
+El Rodeo;Rojas;71.9;138;4
+Farallones;Amarillas;69.7;130;4
+Farallones;Azules;75.7;140;4
+Farallones;Blancas;72.7;136;4
+Farallones;B/R;80.3;155;4
+Farallones;Grises;72.2;130;4
+Farallones;Negras;64;114;4
+Farallones;Rojas;75.2;141;4
+Farallones;Verdes;65.7;127;4
+Guaimaral1;Amarillas;67.1;118;4
+Guaimaral1;Azules;72.4;135;4
+Guaimaral1;Blancas;69.4;122;4
+Guaimaral1;Blancas Dam;75.2;147;4
+Guaimaral1;Rojas;69.1;125;4
+Guaimaral2;Azules;73.2;132;5
+Guaimaral2;Blancas;69.8;124;5
+Guaimaral2;Doradas;72.4;130;5
+Guaimaral2;Negras;74.7;134;5
+Guaimaral2;Rojas;71.5;135;5
+Guaimaral2;Rojas Cab;65.9;112;5
+Hatogrande;Amarillas Cab;66.2;117;4
+Hatogrande;Amarillas Dam;73.9;139;4
+Hatogrande;Azules;72.3;138;4
+Hatogrande;Blancas;70.5;130;4
+Hatogrande;B/R;76.1;152;4
+Hatogrande;Rojas;69.7;135;4
+Briceno;Azules;72.6;131;4
+Briceno;Blancas;69.2;127;4
+Briceno;Negras;72.9;135;4
+Briceno;Rojas;70.1;139;4
+Fedegolf;Blancas;71;113;3
+Britania;Azules;68;139;4
+Britania;Blancas;66.2;136;4
+Britania;Rojas;67.2;131;4
+Wyndham Garden;Azules;69.8;123;4
+Wyndham Garden;Blancas;67;113;4
+Wyndham Garden;Rojas;69.6;124;4
+La Cima;Azules;69.7;130;4
+La Cima;Blancas;65.1;124;4
+La Cima;Rojas;70;145;4
+Internacional;Azules;72.7;139;4
+Internacional;Blancas;71;136;4
+Internacional;Rojas;74.2;134;4
+La Florida;Azules;72.6;141;4
+La Florida;Blancas;69.6;139;4
+La Florida;Rojas;72.8;145;4
+La Pradera;Azules;71.8;132;5
+La Pradera;Blancas;68.3;127;5
+La Pradera;B/R;75.1;141;5
+La Pradera;Negras;75.5;135;5
+La Pradera;Rojas;71.7;142;5
+La Sabana;Azules;70.1;134;5
+La Sabana;Blancas;68.2;123;5
+La Sabana;B/R;72.7;140;5
+La Sabana;Rojas;70.8;141;5
+Lagos de Caujaral Club;Amarillas;66.8;124;5
+Lagos de Caujaral Club;Azules;72.2;136;5
+Lagos de Caujaral Club;Blancas;69.7;128;5
+Lagos de Caujaral Club;B/R Dam;76.2;136;5
+Lagos de Caujaral Club;Rojas;71.5;126;5
+Lagos de Caujaral Club;Verdes;66.4;113;5
+Las Mercedes;Azules;68.8;125;4
+Las Mercedes;Blancas;69.6;125;4
+Las Mercedes;Rojas;69.6;128;4
+Los Andes;Amarillas;65.5;133;4
+Los Andes;Azules;73.4;143;4
+Los Andes;Blancas;70.8;136;4
+Los Andes;B/R;76.1;155;4
+Los Andes;Rojas;75.2;139;4
+Los Arrayanes;Amarillas;68.3;121;5
+Los Arrayanes;Azules;71.8;134;5
+Los Arrayanes;Blancas;69.8;131;5
+Los Arrayanes;B/R;76.2;154;5
+Los Arrayanes;Rojas;72.7;139;5
+Los Buhos;Azules;65.3;120;4
+Los Buhos;Blancas;61.2;119;4
+Los Buhos;Rojas;64;126;4
+Corea;Azules Cab;67.7;127;5
+Corea;Azules Dam;73.5;147;5
+Corea;Blancas Cab;64.5;124;5
+Corea;Blancas Dam;70.5;137;5
+Corea;Grises Cab;60.5;105;5
+Corea;Grises Dam;65.9;124;5
+Corea;Rojas Dam;63.4;112;5
+Corea;Rojas Cab;68.7;126;5
+David Gutierrez;Amarillas Cab;67.3;123;5
+David Gutierrez;Amarillas Dam;72.1;145;5
+David Gutierrez;Azules;70.9;140;5
+David Gutierrez;Blancas Dam;75.1;151;5
+David Gutierrez;Blanas Cab;70;132;5
+David Gutierrez;Doradas;72.8;144;5
+David Gutierrez;Negras;74.8;147;5
+David Gutierrez;Rojas Dam;70.6;136;5
+David Gutierrez;Rojas Cab;65.6;118;5
+Mesa de Yeguas;Amarillas;67.2;117;4
+Mesa de Yeguas;Azules;72.1;131;4
+Mesa de Yeguas;Blancas;69.7;124;4
+Mesa de Yeguas;Negras;74.7;138;4
+Mesa de Yeguas;Rojas;71.2;127;4
+Payande;Amarillas A;69.1;120;4
+Payande;Amarillas B;68.8;118;4
+Payande;Blancas;75.1;134;4
+Payande;Purpura;65.2;111;4
+Payande;Purpura D;70;127;4
+Payande;Verde Claro A;71;126;4
+Payande;Verde Claro B;70.4;125;4
+Payande;Verde Oscuro A;73.8;135;4
+Payande;Verde Oscuro B;73.3;134;4
+Pueblo Viejo;Amarillas;67.3;118;5
+Pueblo Viejo;Azules;73.4;136;5
+Pueblo Viejo;Blancas;70.8;129;5
+Pueblo Viejo;B/R;73.4;140;5
+Pueblo Viejo;Negras;75.1;138;5
+Pueblo Viejo;Rojas;68.2;131;5
+Puerto Penalisa;Azules;74.5;138;5
+Puerto Penalisa;Blancas;70.6;136;5
+Puerto Penalisa;Rojas;71.1;130;5
+Ruitoque;Amarillas Cab;64.8;117;4
+Ruitoque;Azul Cab;69;127;4
+Ruitoque;Blancas Cab;68.1;126;4
+Ruitoque;B/R Dam;70.8;139;4
+Ruitoque;Blancas Dam;72.6;137;4
+Ruitoque;Negras Dam;71.2;140;4
+Ruitoque;Rojas Dam;66;117;4
+San Andres;Amarillas;67;122;4
+San Andres;Azules;72.2;132;4
+San Andres;Blancas;70.5;130;4
+San Andres;B/R;76.7;144;4
+San Andres;Negras;73.5;138;4
+San Andres;Rojas;73.1;137;4
+Serrezuela;Azules;72.4;134;4
+Serrezuela;Blancas;69.8;125;4
+Serrezuela;Negras;73.6;143;4
+Serrezuela;Rojas;72.4;135;4
+Shalom;Azules;72;132;4
+Shalom;Blancas;71.4;131;4
+Shalom;B/R;77.7;153;4
+Shalom;Rojas;72;136;4
+Tennis Golf Club;Azules;67.8;137;3
+Tennis Golf Club;Blancas;67.8;125;3
+Tennis Golf Club;Rojas;71;132;3
+UMB Golf Club;Azules;71.3;138;4
+UMB Golf Club;Blancas;70.2;133;4
+UMB Golf Club;Rojas;73.1;131;4

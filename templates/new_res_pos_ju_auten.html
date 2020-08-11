@@ -1,0 +1,85 @@
+{% extends "layout_juego_golf.html" %}
+{% block content%}
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal_juego.css')}}"/>
+</head>
+<header>
+  <div class="crear_juego" id="fixed-tit">
+    <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
+    <li class="titulo_juego"><h2 >TEE-SHOT</h2>  </li>
+    <li class="personita"><a href="#"><span class="icon-user-circle-o"></a>
+      <ul class="submenu">
+        <li><a href="{{url_for('perfilusuario')}}">Perfil</a></li>
+        <li><a href="{{url_for('cambiocontrasegna')}}">Cambiar Contraseña</a></li>
+      </ul>
+    </li>
+  </div>
+</header>
+<br><br><br><br>
+
+<div class="cuerpo1">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alerta">
+        <h2>{{message}}</h2>
+      </div>
+
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="primera_eleccion">
+    <form  action="{{url_for('accederjuego')}}" method="post">
+      <label for="usuario" class="opcional"><p>Si desea jugar y ya tiene un juego creado:</p></label>
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form>
+    <form  action="{{url_for('iniciocreajuegogolf')}}" method="post">
+      <label for="usuario" class="opcional"><p>Si desea crear un nuevo juego:</p></label>
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form>
+    <form  action="{{url_for('inicioagenadmientos')}}" method="post">
+      <label for="usuario" class="opcional"><p>Si desea agendar y el club tiene agendamientos por TEE-SHOT:</p></label>
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-calendar"></button>
+    </form>
+
+
+  </div>
+
+</div>
+
+
+
+
+<br><br><br><br>
+
+<div class="enlaces" id="fixed-bar">
+    <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list"></span></a></li>
+    <li class="presente"><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
+    <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li> -->
+    <!-- <li ><a href="{{url_for('gruposjuegocambios')}}" name="configurar" value="si"><span class="icon-cogs"></span></a></li> -->
+    <li><form  action="{{url_for('logout')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-power-off"></button>
+    </form></li>
+    <li class="suave"><form  action="#" method="post">
+      <div class="nulo"></div>
+      <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button> -->
+    </form></li>
+    <li ><form  action="{{url_for('accederjuego')}}" method="post">
+
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-sports_golf"></button>
+    </form></li>
+    <li ><form  action="{{url_for('inicioagenadmientos')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-calendar"></button>
+    </form></li>
+    <li><form  action="{{url_for('iniciocreajuegogolf')}}" method="post">
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
+    </form></li>
+</div>
+
+
+
+{% endblock %}

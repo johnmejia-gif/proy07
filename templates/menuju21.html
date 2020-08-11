@@ -8,25 +8,22 @@
 <header>
   <div class="crear_juego" id="fixed-tit">
     <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
-    <li class="titulo_juego"><h2 >JUEGOS</h2>  </li>
+    <li class="titulo_juego"><h2 >RESULTADOS</h2>  </li>
   </div>
 </header>
 <br><br><br><br>
-
+    <h2 class="tit_cambios">{{campo}}</h2>
 
 
   <div class="juegos_disp">
-    <form class="" action="{{url_for('enlaceajuego')}}" method="post">
-      <h2>Seleccione juego</h2>
-      {% for juego in juegos1 %}
-      <button type="submit" name="juego" value={{juego[0]}} onclick="">Número de juego: {{juego[0]}}</button>
-      {% endfor %}
-
-
-      <!-- <input id="submit" name="submit" type="submit" value="ACEPTAR"> -->
+    <form class="" action="{{url_for('resultadostrokeplay')}}" method="post">
+      <h2>Seleccione resultado que desea visualizar</h2>
+      <button type="submit" name="resultado" value="neto" onclick="">Neto</button>
+      <button type="submit" name="resultado" value="gross" onclick="">Gross</button>
+      <button type="submit" name="resultado" value="stableford" onclick="">Stableford</button>
+      <button type="submit" name="resultado" value="put" onclick="">Putt</button>
     </form>
   </div>
-<br><br><br><br>
 
 <div class="enlaces" id="fixed-bar">
     <!-- <li ><a href="{{url_for('logout')}}"><span class="icon-home"></span></a></li>
@@ -37,20 +34,20 @@
     <li><form  action="{{url_for('casa')}}" method="post">
       <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
     </form></li>
-    <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
-      <div class="nulo"></div>
-      <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button> -->
-    </form></li>
     <li class="presente"><form  action="#" method="post">
-      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-sports_golf"></button>
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    </form></li>
+    <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <input type="hidden" name="configurar" value="no">
+      <button type="submit" name="jugar" value="si" onclick=""><span class="icon-sports_golf"></button>
     </form></li>
     <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
       <div class="nulo"></div>
       <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button> -->
     </form></li>
-    <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
-      <div class="nulo"></div>
-      <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button> -->
+    <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <!-- <div class="nulo"></div> -->
+      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
     </form></li>
 </div>
 

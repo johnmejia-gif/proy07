@@ -39,19 +39,16 @@
             {% else %}
             <td ><span class="icon-golf1"></td>
             {% endif %}
-            <td class="col5">{{linea[52]}} <h6>Grupo: {{linea[50]}}</h6></td>
+            <td class="col5"><p>{{linea[52]}}</p> <h6>Grupo: {{linea[50]}}</h6></td>
             <td><select class="" name="{{linea[56]}}">
                   <option selected>{{linea[54]}}</option>
-                  <option >Negras</option>
-                  <option >Azules</option>
-                  <option >Blancas</option>
-                  <option >Doradas</option>
-                  <option >Rojas</option>
-                  <option ></option>
+                  {% for marquita in marquillas%}
+                  <option>{{marquita}}</option>
+                  {% endfor %}
                 </select></td>
             <td><select class="" name="{{linea[55]}}">
                   <option selected>{{linea[53]}}</option>
-                  {% for i in range(0,45)%}
+                  {% for i in range(-5,45)%}
                   <option >{{i}}</option>
                   {% endfor %}
                 </select></td>
@@ -61,10 +58,10 @@
       </div>
       <div class="rotar">
         <div class="sig_ant">
-          <button type="submit" name="terminar" value="actualizar" onclick="">Actualizar</button>
+          <button type="submit" name="terminar" value="actualizar" onclick=""><span class="icon-mail-forward"></span>Actualizar</button>
         </div>
         <div class="sig_ant">
-          <button type="submit" name="terminar" value="terminar" onclick="">Empezar Juego</button>
+          <button type="submit" name="terminar" value="terminar" onclick=""><span class="icon-sports_golf"></span>Jugar</button>
         </div>
       </div>
     </form>
@@ -77,21 +74,22 @@
     <li ><a href="{{url_for('logout')}}" ><span class="icon-sports_golf"></span></a></li>
     <li ><a href="{{url_for('logout')}}"><span class="icon-list-alt"></span></a></li>
     <li class="presente"><a href="{{url_for('logout')}}"><span class="icon-cogs"></span></a></li> -->
-    <li><form  action="{{url_for('logout')}}" method="post">
+    <li><form  action="{{url_for('casa')}}" method="post">
       <button type="submit" name="configurar" value="si" onclick=""><span class="icon-home"></button>
     </form></li>
-    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
-      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button>
+    <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <div class="nulo"></div>
+      <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list"></button> -->
     </form></li>
     <li ><form  action="{{url_for('gruposjuegocambios')}}" method="post">
       <input type="hidden" name="configurar" value="no">
       <button type="submit" name="jugar" value="si" onclick=""><span class="icon-sports_golf"></button>
     </form></li>
-    <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
-      <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
+    <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <div class="nulo"></div>
+      <!-- <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button> -->
     </form></li>
-    <li class="presente"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
-      <input type="hidden" name="jugar" value="no">
+    <li class="presente"><form  action="#" method="post">
       <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
     </form></li>
 </div>
