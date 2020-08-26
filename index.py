@@ -1,6 +1,6 @@
 import re
 import flask
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, make_response
 from flask_bootstrap import Bootstrap
 import os
 from datetime import datetime, date, time, timedelta
@@ -12,6 +12,46 @@ import string
 from flask import flash
 from mysql.connector import MySQLConnection, Error
 from python_mysql_dbconfig import read_db_config
+
+class CamposCompletos:
+    def __init__(self):
+        self.lista=[]
+    def iniciarCamposCompletos(self):
+        archivo=open('campos_colombia.txt','a')
+        archivo.close()
+    def leerCamposCompletos(self):
+        archivo=open('campos_colombia.txt', 'r')
+        linea=archivo.readline()
+        if linea:
+            while linea:
+                if linea[-1] =='\n':
+                    linea = linea[:-1]
+                self.lista.append(linea)
+                linea=archivo.readline()
+        archivo.close()
+    def devolverlistado(self):
+        listado=[]
+        for elemento in self.lista:
+            arreglo=elemento.split(';')
+            listado.append(arreglo)
+        return listado
+
+def GrabarBaseCamposColombia(linea):
+    dbconfig = read_db_config()
+    q1="INSERT INTO campos_colombia (campo,marcas,patron,curva,par1,par2,par3,par4,par5,par6,par7,par8,par9,par10,par11,par12,par13,par14,par15,par16,par17,par18,dis1,dis2,dis3,dis4,dis5,dis6,dis7,dis8,dis9,dis10,dis11,dis12,dis13,dis14,dis15,dis16,dis17,dis18,ven1,ven2,ven3,ven4,ven5,ven6,ven7,ven8,ven9,ven10,ven11,ven12,ven13,ven14,ven15,ven16,ven17,ven18) VALUES ("
+    q2="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    query=q1+q2
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        # print(linea)
+        cursor.execute(query,linea)
+        conn.commit()
+    except Error as error:
+        dato='errror'
+    finally:
+        cursor.close()
+        conn.close()
 
 class Campos:
     def __init__(self):
@@ -1080,6 +1120,22 @@ def ordenmayormenor(lista,pos):
                 nlista[j]=fila1
     return nlista
 
+'''FUNCIONES ADMINISTRACION TEE-SHOT'''
+def AdministradorConsultabd(frase):
+    query=frase
+    dbconfig = read_db_config()
+    try:
+        conn = MySQLConnection(**dbconfig)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        datos=cursor.fetchall()
+    except Error as error:
+        print(error)
+    finally:
+        cursor.close()
+        conn.close()
+    return datos
+
 '''FUNCIONES TURNOS'''
 def TotalTurnos(hi,mi,fm,hf,mf,txr,desa):#devuelve una lista con [numero de turnos antes del cruce, turnos en total del día]
     hi=int(hi)
@@ -1230,23 +1286,59 @@ mail=Mail(app)
 
 @app.route('/', methods=["GET", "POST"]) #es como decirle: esta  es la página principal, es la turata p4ra la apgina principal
 def home():
+    try:
+        username=request.cookies.get("prusu",'')
+        # tusu=request.cookies.get("tusu",None)
+        if username!='':
+            flask.session["logged_in"]=True
+            flask.session["name"]=datotalUsuarios(co=username,tal='nombre')
+            flask.session["surname"]=datotalUsuarios(co=username,tal='apellido')
+            flask.session["username"]=username
+            flask.session["course"]=datotalUsuarios(co=username,tal='club')
+            flask.session["numerojuego"]=0
+            flask.session["hoyo"]=1
+            tusuario=datotalUsuarios(co=username,tal='tipo') #lee el tipo de usuario
+            flask.session["tusu"]=tusuario
+            # return render_template('new_res_pos_ju_auten.html')
+            return render_template('autenticacion.html')
+    except:
+        None
     flask.session["logged_in"] = False
     flask.session["name"]=''
     flask.session["username"]=''
     flask.session["course"]=''
     flask.session["tusu"]=''
     flask.session["numerojuego"]=0
+    flask.session["hoyo"]=1
     return render_template('autenticacion.html')
+
+
+@app.route('/grabar', methods=["GET", "POST"]) # Se usa para grabar la base de datos de campos, hayu que recar un botón para hacerlo
+def grabar():
+    archivo=CamposCompletos()
+    archivo.leerCamposCompletos()
+    listado=archivo.devolverlistado()
+    for parte in listado:
+        parte[2]=float(parte[2])
+        for i in range(3,58):
+            parte[i]=int(parte[i])
+        # print(parte)
+        GrabarBaseCamposColombia(linea=parte)
+    return render_template('grabar.html')
 
 @app.route('/logout', methods=["GET","POST"])
 def logout():
-    flask.session["logged_in"] = False
-    flask.session["name"]=''
-    flask.session["username"]=''
-    flask.session["course"]=''
-    flask.session["tusu"]=''
-    flask.session["numerojuego"]=0
-    return flask.redirect(flask.url_for("home"))
+    resp=make_response(flask.redirect(flask.url_for("home")))
+    resp.set_cookie("prusu",'')
+    # print(resp)
+    return(resp)
+    # flask.session["logged_in"] = False
+    # flask.session["name"]=''
+    # flask.session["username"]=''
+    # flask.session["course"]=''
+    # flask.session["tusu"]=''
+    # flask.session["numerojuego"]=0
+    # return flask.redirect(flask.url_for("home"))
 
 @app.route('/autentication/home', methods=["GET", "POST"]) #es como decirle: esta  es la página principal, es la turata p4ra la apgina principal
 def casa():
@@ -1261,6 +1353,7 @@ def inicioagenadmientos():
         return render_template('res_pos_jug_autentic.html')
     else:
         return render_template("autenticacion.html")
+
 @app.route('/autentication', methods=["POST","GET"])   #Valida los datos que viene del formulario de autenticacion en 'inicio'
 def autenticar():
     if (flask.request.method == "POST"):
@@ -1277,10 +1370,16 @@ def autenticar():
                 flask.session["username"]=usuario
                 flask.session["course"]=datotalUsuarios(co=usuario,tal='club')
                 flask.session["numerojuego"]=0
+                flask.session["hoyo"]=1
                 tusuario=datotalUsuarios(co=usuario,tal='tipo') #lee el tipo de usuario
                 flask.session["tusu"]=tusuario
                 if tusuario==1:
-                    return flask.render_template("new_res_pos_ju_auten.html") #direcciona a formulario positivo de autenticacion de jugador
+                    resp=make_response(render_template("new_res_pos_ju_auten.html"))
+                    resp.set_cookie("prusu",usuario, max_age=12960000)
+                    return(resp)
+                    # resp2=make_response(render_template("new_res_pos_ju_auten.html"))
+                    # resp2.set_cookie("tusu",tusuario)
+                    # return flask.render_template("new_res_pos_ju_auten.html") #direcciona a formulario positivo de autenticacion de jugador
                 elif tusuario==2:
                     return flask.render_template("res_pos_adclu_autentic.html") # direcciona a formulario positivo de autenticacion administrador de club
                 elif tusuario==0:
@@ -1292,6 +1391,16 @@ def autenticar():
             return flask.render_template("res_neg_autentic.html", dato='No está registrado en Tee-Shot')
     else:
         return flask.redirect(flask.url_for("home"))
+
+@app.route('/administrator_teeshot/first', methods=["GET","POST"])
+def inicioadmon():
+    return flask.render_template("res_pos_admin.html")
+
+@app.route('/administrator_teeshot/bdconsult', methods=["GET","POST"])
+def consultabd(): #devuelve la consula de base de datos solicitada
+    frase=flask.request.form["frase"]
+    listado=AdministradorConsultabd(frase=frase)
+    return render_template("consbases.html",listado=listado)
 
 @app.route('/administrator_club', methods=["GET","POST"])
 def inicioadclub(): #procedimiento para direccionar al menu inicial del administrador del club
@@ -1394,7 +1503,47 @@ def terminaregistro():
 def perfilusuario():
     usuario=flask.session["username"]
     datusuario=todosdatosUsuarios(co=usuario)
-    return render_template('cambioperfil.html',datusuario=datusuario)
+    campos=Campos()
+    campos.leerCampos()
+    lista_campos=campos.devolverCampos()
+    largo=len(lista_campos)
+    return render_template('cambioperfil.html',datusuario=datusuario,campos=lista_campos,largo=largo)
+
+@app.route('/autentication/user_profile/update', methods=["GET","POST"])
+def cambioperfilusuario():
+    if(flask.request.method == "POST"):
+        usuario = flask.session["username"]
+        datusuario=todosdatosUsuarios(co=usuario)
+        nombre = flask.request.form["nombre"]
+        apellido = flask.request.form["apellido"]
+        identificacion = flask.request.form["identificacion"]
+        club = flask.request.form["club"]
+        indice =flask.request.form["indice"]
+        cod_fedegolf = flask.request.form["cod_fedegolf"]
+        if nombre!=datusuario[1] and nombre!='':
+            cambiodatoUsauarios(co=usuario,dato='nombre',valor=nombre)
+        if apellido!=datusuario[2] and apellido!='':
+            cambiodatoUsauarios(co=usuario,dato='apellido',valor=apellido)
+        if identificacion!=datusuario[4] and identificacion!='':
+            cambiodatoUsauarios(co=usuario,dato='telefono',valor=identificacion)
+        if club!=datusuario[5]:
+            cambiodatoUsauarios(co=usuario,dato='club',valor=club)
+        if indice!=datusuario[8] and indice!='':
+            indice=float(indice)
+            cambiodatoUsauarios(co=usuario,dato='indice',valor=indice)
+        if cod_fedegolf!=datusuario[1] and cod_fedegolf!='':
+            cambiodatoUsauarios(co=usuario,dato='codigo_fed',valor=cod_fedegolf)
+        tipo=datotalUsuarios(co=usuario,tal="tipo")
+        if tipo==1:
+            return render_template("new_res_pos_ju_auten.html")
+        if tipo==2:
+            return render_template("res_pos_adclu_autentic.html")
+        if tipo==0:
+            return render_template("res_pos_admin.html")
+        else:
+            return flask.redirect(flask.url_for("logout"))
+    else:
+        return render_template("autenticacion.html")
 
 @app.route('/autentication/change_password', methods=["GET","POST"])
 def cambiocontrasegna():
@@ -2560,6 +2709,7 @@ def grabagenjugadoresqui(): #grabar la opcion del jugador de esqui
 @app.route('/creating_gofl_game_init', methods=["GET","POST"])
 def iniciocreajuegogolf():
     flask.session["numerojuego"]=0
+    flask.session["hoyo"]=1
     campos=Campos()
     campos.leerCampos()
     lista_campos=campos.devolverCampos()
@@ -2589,6 +2739,8 @@ def gruposjuego():
             jug4='e-mail'
             return render_template("menuju17.html",grupo=grupo,campo=campo,modalidad=modalidad,marcas=marcas,tgrupos=tgrupos,jug1=jug1,jug2=jug2,jug3=jug3,jug4=jug4,fecha=fecha)
         jug1=flask.request.form["jug1"]
+        if jug1=='' and tgrupos==1:
+            jug1=flask.session["username"]
         jug2=flask.request.form["jug2"]
         jug3=flask.request.form["jug3"]
         jug4=flask.request.form["jug4"]
@@ -2689,6 +2841,7 @@ def gruposjuegocambios():
     listajuego=recuperaListaJuegos(numero_juego=numero_juego)
     campo=listajuego[1]
     modalidad=listajuego[4]
+    flask.session["creador"]=listajuego[5]
     tarjetastotal=recuperaTodasTarjetasJuegoGolf(numero_juego=numero_juego)
     tarjetas2=[]
     configurar=flask.request.form["configurar"]
@@ -2710,7 +2863,7 @@ def gruposjuegocambios():
     if jugar=='si': #Responder a solicitud de jugar
         grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
         tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
-        hoyo=1
+        hoyo=flask.session["hoyo"]
         co=flask.session["username"]
         jug=recuperaJugTarjetasJuegoGolf(numero_juego=numero_juego,jugador=co)
         marca=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
@@ -2765,9 +2918,16 @@ def gruposjuegocambios():
         if encontrado=='si':
             grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
             tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
-            hoyo=1
-            par="COMPLETAR"
-            ventaja="COMPLETAR"
+            hoyo=flask.session["hoyo"]
+            co=flask.session["username"]
+            jug=recuperaJugTarjetasJuegoGolf(numero_juego=numero_juego,jugador=co)
+            marca=recuperaMarcaTarjetasJuegoGolf(numero_juego=numero_juego,grupo=grupo,jug=jug)
+            parhoyo='par'+(str(hoyo))
+            par=datotalCampos(campo=campo,marcas=marca,tal=parhoyo)
+            venhoyo='ven'+(str(hoyo))
+            ventaja=datotalCampos(campo=campo,marcas=marca,tal=venhoyo)
+            dishoyo='dis'+(str(hoyo))
+            distancia=datotalCampos(campo=campo,marcas=marca,tal=dishoyo)
             tarjetas2=[]
             for linea in tarjetas:
                 linea2=[]
@@ -2794,6 +2954,8 @@ def scorejuego():
     modalidad=flask.request.form["modalidad"]
     hoyo=int(flask.request.form["hoyo"])
     numero_juego=flask.session["numerojuego"]
+    listajuego=recuperaListaJuegos(numero_juego=numero_juego)
+    flask.session["creador"]=listajuego[5]
     grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
     tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
     prtr=tarjetas[0]
@@ -2857,6 +3019,7 @@ def scorejuego():
     ventaja=datotalCampos(campo=campo,marcas=marca,tal=venhoyo)
     dishoyo='dis'+(str(hoyo))
     distancia=datotalCampos(campo=campo,marcas=marca,tal=dishoyo)
+    flask.session["hoyo"]=hoyo
     return render_template("menuju19.html",campo=campo,modalidad=modalidad,hoyo=hoyo,par=par,ventaja=ventaja,tarjetas=tarjetas2,poshoyo=poshoyo,posput=posput,distancia=distancia)
 
 @app.route('/playing_golf/access_game',methods=["GET","POST"])
@@ -2880,6 +3043,7 @@ def enlaceajuego():
     listajuego=recuperaListaJuegos(numero_juego=numero_juego)
     campo=listajuego[1]
     modalidad=listajuego[4]
+    flask.session["creador"]=listajuego[5]
     grupo=recuperaNgrupoTarjetasJuegoGolf(numero_juego=numero_juego,jugador=flask.session["username"])
     tarjetas=recuperaTarjetasGrupoJuegoGolf(numero_juego=numero_juego,grupo=grupo)
     hoyo=1
@@ -2954,8 +3118,10 @@ def resultadostrokeplay():
                         handicap=tarjeta[53]
                         prim=float(handicap/18)
                         entprim=int(prim)
-                        saldoprim=(prim-entprim)*18
-                        if i>saldoprim:
+                        saldoprim=((prim-entprim)*18)+0.0001
+                        ventajita='ven'+hoyo
+                        ventaja=datotalCampos(campo=campo,marcas=marcas,tal=ventajita)
+                        if ventaja>saldoprim:
                             saldo=0
                         else:
                             saldo=1
@@ -2974,11 +3140,13 @@ def resultadostrokeplay():
                         grupo=tarjeta[50]
                         jug=tarjeta[51]
                         cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato=cualneto,valor=neto)
-                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_ida',valor=netoida)
-                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_vuelta',valor=netovuelta)
-                cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_total',valor=netotal)
-
-
+                try:
+                    cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_ida',valor=netoida)
+                    cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_vuelta',valor=netovuelta)
+                    cambiadatotalNetos(numero_juego=numero_juego,grupo=grupo,jug=jug,dato='n_total',valor=netotal)
+                except:
+                    None
+                
             lista1=recuperaNetos(numero_juego=numero_juego)
             netosida=ordenmenormayor(lista=lista1,pos=25)
             lista2=recuperaNetos(numero_juego=numero_juego)
@@ -3004,8 +3172,10 @@ def resultadostrokeplay():
                         handicap=tarjeta[53]
                         prim=float(handicap/18)
                         entprim=int(prim)
-                        saldoprim=(prim-entprim)*18
-                        if i>saldoprim:
+                        saldoprim=((prim-entprim)*18)+0.0001
+                        ventajita='ven'+hoyo
+                        ventaja=datotalCampos(campo=campo,marcas=marcas,tal=ventajita)
+                        if ventaja>saldoprim:
                             saldo=0
                         else:
                             saldo=1
@@ -3075,9 +3245,10 @@ def mostrartarjetasgrupo():
         campo=tarj1[4]
         marcas=tarj1[54]
         datcampo=recuperaDatosCampos(campo=campo,marcas=marcas)
-        return render_template('menuju26.html',tarjetas=tarjetas,datcampo=datcampo)
+        return render_template('menuju26.html',tarjetas=tarjetas,datcampo=datcampo,campo=campo)
     else:
-        return render_template("autenticacion.html")
+        # return render_template("autenticacion.html")
+        return render_template('new_res_pos_ju_auten.html')
 
 
 if __name__ == '__main__':  #para mantener activa la página

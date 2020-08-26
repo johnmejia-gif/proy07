@@ -1,0 +1,25 @@
+{% extends "layout_autenticado.html" %}
+{% block content%}
+<html lang="en">
+<head>
+<!--    <meta charset="UTF-8">
+  <title>Formularios con CSS</title>-->
+  <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal.css')}}"/>
+</head>
+<body>
+  {% for parte in listado %}
+  <p>{{parte}}</p>
+  {% endfor %}
+
+  <hr><hr><hr>
+  <form class="" action="{{url_for('consultabd')}}" method="post">
+    <label for="">Escribir consulta de la base de datos</label>
+    <input type="text" name="frase" value="">
+    <input type="submit" name="" value="solicitar">
+  </form>
+  <br><br>
+  <li class="enlace"><a href="{{url_for('inicioadmon')}}">Regresar</a></li>
+  <br>
+  </body>
+</html>
+{% endblock %}

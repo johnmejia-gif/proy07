@@ -8,11 +8,14 @@
 <header>
   <div class="crear_juego" id="fixed-tit">
     <li>  <img src="{{url_for('static',filename='IMAGENES/logo_ts.ico')}}" width="70" alt="Logotipo"></li>
-    <li class="titulo_juego"><h2 >SCORES</h2>  </li>
+    <li class="titulo_juego"><h2 >SCORES</h2> </li>
   </div>
 </header>
-<br><br><br><br>
-<h2 class="tit_cambios">{{campo}} - {{modalidad}}</h2>
+<body>
+
+
+<br><br>
+<!-- <h2 class="tit_cambios">{{campo}} - {{modalidad}}</h2> -->
 
 <!-- <p>{{tarjetas}}</p> -->
 {% with messages = get_flashed_messages() %}
@@ -26,17 +29,12 @@
   {% endif %}
 {% endwith %}
   <div class="conte_score">
+<br><br>
     <form class="" action="{{url_for('scorejuego')}}" method="post">
-      <div class="rotar">
-        <div class="sig_ant">
-          <button type="submit" name="lin" value="ant" onclick=""><span class="icon-chevron-left"></button>
-        </div>
-        <h3 class="titulo_hoyo">HOYO {{hoyo}}</h3>
-        <div class="sig_ant">
-          <button type="submit" name="lin" value="sig" onclick=""><span class="icon-chevron-right"></button>
-        </div>
-      </div>
+    <h2 class="tit_cambios">{{campo}} - {{modalidad}}</h2>
+
       <div class="info_hoyo">
+        <h3 class="subt_cambios">Hoyo: {{hoyo}}</h3>
         <h3 class="subt_cambios">Par:     {{par}}</h3>
         <h3 class="subt_cambios">Ventaja:    {{ventaja}}</h3>
         <h3 class="subt_cambios">Distancia:    {{distancia}}</h3>
@@ -86,13 +84,19 @@
           {% endfor %}
         </table>
       </div>
-
-
-
-
-      <!-- <input id="submit" name="submit" type="submit" value="ACEPTAR"> -->
+      <div class="rotar" >
+        <div class="sig_ant">
+          <button type="submit" name="lin" value="ant" onclick=""><span class="icon-chevron-left"></button>
+        </div>
+        <h3 class="titulo_hoyo">HOYO {{hoyo}}</h3>
+        <div class="sig_ant">
+          <button type="submit" name="lin" value="sig" onclick=""><span class="icon-chevron-right"></button>
+        </div>
+      </div>
+          <!-- <input id="submit" name="submit" type="submit" value="ACEPTAR"> -->
     </form>
   </div>
+</body>
 <br><br><br><br>
 
 <div class="enlaces" id="fixed-bar">
@@ -114,10 +118,16 @@
     <li><form  action="{{url_for('mostrartarjetasgrupo')}}" method="post">
       <button type="submit" name="configurar" value="si" onclick=""><span class="icon-list-alt"></button>
     </form></li>
+    {% if  session["username"]==session["creador"] %}
     <li><form  action="{{url_for('gruposjuegocambios')}}" method="post">
       <input type="hidden" name="configurar" value="si">
       <button type="submit" name="configurar" value="si" onclick=""><span class="icon-cogs"></button>
     </form></li>
+    {% else %}
+    <li class="suave"><form  action="{{url_for('gruposjuegocambios')}}" method="post">
+      <div class="nulo"></div>
+    </form></li>
+    {% endif %}
 </div>
 
 

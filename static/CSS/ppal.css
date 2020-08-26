@@ -397,6 +397,50 @@ input[type="submit"]:active{
   background: #ffff;
   height: 30px;
 }
+.cambiosusuario form h2{
+  box-sizing: border-box;
+  color: #ffff;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.cambiosusuario form .usu{
+  box-sizing: border-box;
+  color: #ffff;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.cambiosusuario form input{
+  box-sizing: border-box;
+  margin:0;
+  border-radius: 5px;
+  padding:5px;
+}
+.cambiosusuario form select{
+  box-sizing: border-box;
+  margin:0;
+  border-radius: 5px;
+  padding:5px;
+}
+.cambiosusuario form label{
+  box-sizing: border-box;
+  margin:0;
+  padding-top:10px;
+}
+.actu{
+  text-align: center;
+}
+.medio{
+  width: 100%;
+}
+.cambiosusuario form input[type="submit"]{
+  box-sizing: border-box;
+  margin-top:15px ;
+  padding: 5px;
+  text-align: center;
+  /* border-radius: 5px; */
+}
+
 @media only screen and (max-width:800px){
   .menu > li{
     width: 25%;

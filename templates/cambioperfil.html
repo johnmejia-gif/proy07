@@ -5,10 +5,47 @@
   <link rel="stylesheet" href="{{url_for('static',filename='CSS/ppal.css')}}"/>
 </head>
 <body>
-{% for i in range (15)%}
+<!-- {% for i in range (15)%}
   <p>{{datusuario[i]}}</p>
-{% endfor %}
+{% endfor %} -->
 
-{% endblock %}
 
+
+<div class="cambiosusuario">
+  <form class="" action="{{url_for('cambioperfilusuario')}}" method="post">
+    <h2>Modificar datos de Usuario</h2>
+    <label for="" class="usu">Usuario: {{datusuario[0]}}</label>
+
+    <label for="usuario">Nombres:</label>
+    <input id="usuario" name="nombre" placeholder="{{datusuario[1]}}" type="text" value="">
+
+    <label for="usuario">Apellidos:</label>
+    <input id="usuario" name="apellido" placeholder="{{datusuario[2]}}" type="text" value="">
+
+    <label for="usuario">Club</label>
+    <select name="club" class="medio">
+      {% for i in range(largo) %}
+      <option>{{datusuario[5]}}</option>
+      <option>{{campos[i]}}</option>
+      {% endfor %}
+    </select>
+
+    <label for="usuario" class="opcional">Número de Celular</label>
+    <input id="usuario" name="identificacion" type="text" value="" class="medio" placeholder="{{datusuario[4]}}">
+
+    <label for="usuario" class="opcional">Código de Fedegolf</label>
+    <input id="usuario" name="cod_fedegolf" type="text" value="" class="medio" placeholder="{{datusuario[7]}}">
+
+    <label for="usuario" class="opcional">Index al día según Fedegolf</label>
+    <input id="usuario" name="indice" type="number" step='0.1' class="medio" placeholder="{{datusuario[8]}}">
+
+    <div class="actu">
+      <input id="submit" name="submit" type="submit" value="Enviar">
+    </div>
+
+
+  </form>
+
+</div>
 </body>
+{% endblock %}

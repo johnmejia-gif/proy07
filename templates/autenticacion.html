@@ -17,6 +17,27 @@
     {% endif %}
   {% endwith %}
 
+  {% if session["username"]!='' and session["tusu"]==1 %}
+  <div class="contenedor">
+    <div class="login">
+      <article class="fondo">
+      <form action="{{url_for('casa')}}" method="POST">
+        <h2>Bienvenido {{session["name"]}}</h2>
+        <!-- <label for="usuario">Correo electónico</label>
+        <input id="usuario" name="usuario" required type="email" value="">
+
+        <label for="contrasena">Contraseña</label>
+        <input id="contrasena" name="contrasena" required type="password" value=""> -->
+        <input id="submit" name="submit" type="submit" value="Ir a Juego">
+        <br>
+        <!-- <li><a href="{{url_for('olvidocontrasegna')}}">Olvidó su contraseña</a></li> -->
+      </form>
+    </article>
+    </div>
+  </div>
+
+  {% else %}
+
   <div class="contenedor">
     <div class="login">
       <article class="fondo">
@@ -34,6 +55,7 @@
     </article>
     </div>
   </div>
+  {% endif %}
   <section class="wrapper">
       <section class="manin">
         <article>

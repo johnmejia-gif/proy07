@@ -35,7 +35,11 @@
 
       <label for="usuario">Jugador 1 (Usuario y Marcas) : </label>
       <div class="bljug">
+        {% if tgrupos == 1 %}
+        <input class="jugadores" name="jug1" type="text" placeholder={{session["username"]}}>
+        {% else %}
         <input class="jugadores" name="jug1" type="text" placeholder={{jug1}}>
+        {% endif %}
         <select class="" name="marca1">
           <option selected>Blancas</option>
           {% for marca in marcas %}
@@ -84,6 +88,7 @@
       <input class="jugadores" name="jug3" type="text" placeholder={{jug3}}>
       <label for="usuario">Jugador 4 : </label>
       <input class="jugadores" name="jug4" type="text" placeholder={{jug4}}> -->
+      <br>
       <div class="rotar">
         <div class="sig_ant">
           <button type="submit" name="linea" value="ant" onclick=""><span class="icon-chevron-left"></button>

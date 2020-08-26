@@ -12,40 +12,41 @@
   </div>
 </header>
 <br><br><br><br>
-<h2 class="tit_cambios">{{campo}}</h2>
+<!-- <h2 class="tit_cambios">{{campo}}</h2> -->
 
 <!-- {% for tarjeta in tarjetas %}
 <p>{{tarjeta}}</p>
 {% endfor %} -->
 <!-- <p>{{datcampo}}</p> -->
 <div class="cont_tarjeta">
+  <h5>{{campo}}</h5>
   <table>
     <tr class="fi1">
-      <td class="co1">HOYO</td>
+      <td class="co1"><h4>Hoyo</h4></td>
       {% for i in range (1,10)%}
       <td class="co2">{{(i)}}</td>
       {% endfor %}
-      <td class="co3">R1</td>
+      <td class="co3">Ida</td>
       {% for i in range (10,19)%}
       <td class="co2">{{(i)}}</td>
       {% endfor %}
-      <td class="co3">R2</td>
+      <td class="co3">Vuelta</td>
       <td class="co4">Total</td>
     </tr>
     <tr class="fi1">
-      <td class="co1">Par</td>
+      <td class="co1"><h4>Par</h4></td>
       {% for i in range (4,13)%}
       <td>{{datcampo[i]}}</td>
       {% endfor %}
-      <td></td>
+      <td>{{datcampo[4]+datcampo[5]+datcampo[6]+datcampo[7]+datcampo[8]+datcampo[9]+datcampo[10]+datcampo[11]+datcampo[12]}}</td>
       {% for i in range (13,22)%}
       <td>{{datcampo[i]}}</td>
       {% endfor %}
-      <td></td>
-      <td></td>
+      <td>{{datcampo[13]+datcampo[14]+datcampo[15]+datcampo[16]+datcampo[17]+datcampo[18]+datcampo[19]+datcampo[20]+datcampo[21]}}</td>
+      <td>{{datcampo[4]+datcampo[5]+datcampo[6]+datcampo[7]+datcampo[8]+datcampo[9]+datcampo[10]+datcampo[11]+datcampo[12]+datcampo[13]+datcampo[14]+datcampo[15]+datcampo[16]+datcampo[17]+datcampo[18]+datcampo[19]+datcampo[20]+datcampo[21]}}</td>
     </tr>
     <tr class="fi1">
-      <td class="co1">Ventaja</td>
+      <td class="co1"><h4>Ventaja</h4></td>
       {% for i in range (40,49)%}
       <td>{{datcampo[i]}}</td>
       {% endfor %}
@@ -67,7 +68,7 @@
       {% endif %}
       {% endfor %}
       <td>{{tarjeta[23]}}<sup>{{tarjeta[46]}}</sup></td>
-      {% for j in range(13,22)%}
+      {% for j in range(14,23)%}
       {% if tarjeta[j]!=0 %}
       <td>{{tarjeta[j]}}<sup>{{tarjeta[(j+23)]}}</sup></td>
       {% else %}

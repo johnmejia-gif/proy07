@@ -11,6 +11,7 @@ top: 0;
        width: 100%;
        /* z-index: 0; */
 }
+
 #fixed-bar {
 bottom: 0;
        /* height: 34px;
@@ -28,8 +29,8 @@ bottom: 0;
   width: 100%;
   box-sizing: border-box;
   margin:0%;
-  padding-top: 20px;
-  /* background: red; */
+  padding-top: 0px;
+  background: #ffff;
   color: #ffff;
   display: flex;
   align-items:center;
@@ -777,16 +778,24 @@ input[type="submit"]:active{
 }
 
 .cont_tarjeta{
-  /* background: pink; */
+  background: #065F73;
+  color: #ffff;
+  border-radius: 10px;
   box-sizing: border-box;
   margin:15px;
-  padding: 0;
+  padding: 2%;
   width:700px;
   /* overflow: auto; */
 }
+.cont_tarjeta h5{
+  color:#ffff;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-align: center;
+}
 .cont_tarjeta table{
   /* background: red; */
-
+  color: #ffff;
   box-sizing: border-box;
   margin:0;
   padding:0;
@@ -803,7 +812,15 @@ input[type="submit"]:active{
   padding-left: 2px;
   padding-right: 2px;
 }
+.cont_tarjeta table h4{
+  color:#ffff;
+  font-size: 11px;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 2px;
+}
 .cont_tarjeta td{
+  color: #ffff;
   border: 0.5px solid #1F8DA6;
   box-sizing: border-box;
   font-family: Roboto-Medium;

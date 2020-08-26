@@ -15,6 +15,17 @@
       <input type="submit" name="logout" value="Logout">
       <br><br><br>
     </form>
+
+    <form class="" action="{{url_for('consultabd')}}" method="post">
+      <label for="">Escribir consulta de la base de datos</label>
+      <input type="text" name="frase" value="">
+      <input type="submit" name="" value="solicitar">
+    </form>
+
+    <br><br>
+    <li class="enlace"><a href="{{url_for('logout')}}">Cerrar Sesión</a></li>
+    <br>
+
   </body>
 </html>
 {% endblock %}
